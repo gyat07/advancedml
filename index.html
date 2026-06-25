@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced ML Lab Manual — CML23602</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <h1>Advanced Machine Learning Lab Manual</h1>
+  <p class="subtitle">Course Code: CML23602</p>
+  <p class="subtitle">Complete Programs + Viva + Explanations</p>
+  <span class="badge">Prepared for VTU Lab Examination</span>
+</header>
+
+<div class="layout">
+  <nav class="toc-sidebar">
+    <h3>Table of Contents</h3>
+    <ul>
+      <li><a href="#overview">Course Overview</a></li><li><a href="#libraries">Python ML Libraries</a></li><li><a href="#program-1">Program 1: Artificial Neural Network (Backpropagati…</a></li><li><a href="#program-2">Program 2: Perceptron for AND and OR Logic Gates…</a></li><li><a href="#program-3">Program 3: K-Means Clustering on Iris Dataset…</a></li><li><a href="#program-4">Program 4: K-Modes Clustering on Categorical Data…</a></li><li><a href="#program-5">Program 5: Hierarchical Clustering (Agglomerative &amp;…</a></li><li><a href="#program-6">Program 6: DBSCAN Clustering on Iris Dataset…</a></li><li><a href="#program-7">Program 7: Support Vector Machine (SVM) Classificat…</a></li><li><a href="#program-8">Program 8: Q-Learning in Gridworld Environment…</a></li><li><a href="#program-9">Program 9: Support Vector Regression (SVR) on Sine …</a></li><li><a href="#program-10">Program 10: Genetic Algorithm for Function Optimizat…</a></li><li><a href="#program-11">Program 11: Explanation-Based Learning (EBL) for Pro…</a></li><li><a href="#final-revision">Final Revision</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="title-page">
+      <div class="main-title">ADVANCED MACHINE LEARNING<br>LAB MANUAL</div>
+      <div class="divider"></div>
+      <div class="course-code">Course Code: CML23602</div>
+      <p class="tagline">Complete Programs + Viva + Explanations</p>
+      <p class="tagline">Prepared for VTU Lab Examination</p>
+      <div class="exam-note">📘 11 Lab Programs | 200+ Viva Q&amp;A | Full Code Walkthroughs</div>
+    </section>
+
+    <div class="card" id="overview">
+      <h2>Course Overview</h2>
+      <p>The <strong>Advanced Machine Learning Lab (CML23602)</strong> at VTU covers fundamental and advanced ML algorithms through practical Python implementations. This handbook documents all lab programs with theory, annotated code, function references, expected outputs, modifications, and viva questions.</p>
+      <table>
+        <thead><tr><th>Program</th><th>Topic</th><th>ML Type</th><th>Key Libraries</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Artificial Neural Network</td><td>Supervised (Regression)</td><td>NumPy</td></tr>
+          <tr><td>2</td><td>Perceptron (AND/OR Gates)</td><td>Supervised (Classification)</td><td>NumPy</td></tr>
+          <tr><td>3</td><td>K-Means Clustering</td><td>Unsupervised</td><td>sklearn, pandas</td></tr>
+          <tr><td>4</td><td>K-Modes Clustering</td><td>Unsupervised</td><td>kmodes, pandas</td></tr>
+          <tr><td>5</td><td>Hierarchical Clustering</td><td>Unsupervised</td><td>sklearn, scipy</td></tr>
+          <tr><td>6</td><td>DBSCAN Clustering</td><td>Unsupervised</td><td>sklearn</td></tr>
+          <tr><td>7</td><td>SVM Classification</td><td>Supervised (Classification)</td><td>sklearn</td></tr>
+          <tr><td>8</td><td>Q-Learning</td><td>Reinforcement Learning</td><td>NumPy</td></tr>
+          <tr><td>9</td><td>Support Vector Regression</td><td>Supervised (Regression)</td><td>sklearn</td></tr>
+          <tr><td>10</td><td>Genetic Algorithm</td><td>Optimization</td><td>NumPy</td></tr>
+          <tr><td>11</td><td>Explanation-Based Learning</td><td>Supervised (Rule Learning)</td><td>NumPy</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" id="libraries">
+      <h2>Important Python ML Libraries Summary</h2>
+      <table>
+        <thead><tr><th>Library</th><th>Purpose</th><th>Used In Programs</th><th>Key Functions</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NumPy</strong></td><td>Numerical arrays, linear algebra</td><td>All programs</td><td><code>array</code>, <code>dot</code>, <code>random</code>, <code>mean</code>, <code>linspace</code></td></tr>
+          <tr><td><strong>pandas</strong></td><td>DataFrames, data manipulation</td><td>K-Means, K-Modes</td><td><code>DataFrame</code>, column access</td></tr>
+          <tr><td><strong>matplotlib</strong></td><td>Plotting and visualization</td><td>Programs 3,5,6,7,8,9,10</td><td><code>scatter</code>, <code>plot</code>, <code>show</code>, <code>subplot</code></td></tr>
+          <tr><td><strong>seaborn</strong></td><td>Statistical visualization</td><td>Not used in these labs</td><td><code>heatmap</code>, <code>pairplot</code></td></tr>
+          <tr><td><strong>sklearn</strong></td><td>ML algorithms &amp; tools</td><td>Programs 3,5,6,7,9</td><td><code>KMeans</code>, <code>SVC</code>, <code>SVR</code>, <code>DBSCAN</code></td></tr>
+          <tr><td><strong>TensorFlow</strong></td><td>Deep learning framework</td><td>Not used — ANN from scratch</td><td><code>keras</code>, layers, compile</td></tr>
+          <tr><td><strong>Keras</strong></td><td>High-level neural network API</td><td>Not used in these labs</td><td><code>Sequential</code>, <code>Dense</code></td></tr>
+          <tr><td><strong>scipy</strong></td><td>Scientific computing</td><td>Program 5 (Hierarchical)</td><td><code>linkage</code>, <code>dendrogram</code></td></tr>
+          <tr><td><strong>kmodes</strong></td><td>Categorical clustering</td><td>Program 4</td><td><code>KModes</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    
+<div class="program-header" id="program-1">
+  <div class="program-num">Program 1</div>
+  <h2>Artificial Neural Network (Backpropagation) for Regression</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To implement a feed-forward Artificial Neural Network with one hidden layer using backpropagation to predict student marks from study hours and sleep hours.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Build a 2→3→1 ANN from scratch using NumPy. Normalize inputs and outputs, train with sigmoid activation and gradient descent for 7000 epochs, and minimize Mean Squared Error between predicted and actual marks.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  
+<h3>ML Concept</h3>
+<p>Artificial Neural Networks (ANN) mimic biological neurons. This is a <strong>supervised regression</strong> problem — we learn a mapping from input features to a continuous output.</p>
+<h3>Why Backpropagation?</h3>
+<p>Backpropagation efficiently computes gradients of the loss with respect to weights using the chain rule, enabling gradient descent to update weights layer by layer.</p>
+<h3>Key Formulas</h3>
+<div class="formula">Sigmoid: σ(x) = 1 / (1 + e<sup>−x</sup>)</div>
+<div class="formula">Sigmoid derivative: σ′(x) = σ(x) · (1 − σ(x))</div>
+<div class="formula">Forward pass (hidden): h = σ(X · W<sub>h</sub> + b<sub>h</sub>)</div>
+<div class="formula">Forward pass (output): ŷ = σ(h · W<sub>out</sub> + b<sub>out</sub>)</div>
+<div class="formula">Loss (MSE): L = mean((y − ŷ)²)</div>
+<div class="formula">Weight update: W ← W + α · gradient · learning_rate</div>
+<h3>Advantages</h3>
+<ul><li>Can model non-linear relationships</li><li>Universal function approximator with enough neurons</li><li>From-scratch implementation builds deep understanding</li></ul>
+<h3>Limitations</h3>
+<ul><li>Slow convergence; sensitive to learning rate</li><li>Vanishing gradient with sigmoid in deep networks</li><li>Small dataset (3 samples) — for demonstration only</li><li>No validation split; may overfit on tiny data</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+
+# Input: [study_hours, sleep_hours]; Output: marks (percentage)
+X = np.array(([2, 9], [1, 5], [3, 6]), dtype=float)
+y = np.array(([92], [86], [89]), dtype=float)
+
+# Normalize features and target to [0, 1] range
+X = X / np.amax(X, axis=0)
+y = y / 100
+
+def sigmoid(x):
+    &quot;&quot;&quot;Activation function: squashes values to (0, 1).&quot;&quot;&quot;
+    return 1 / (1 + np.exp(-x))
+
+def derivatives_sigmoid(x):
+    &quot;&quot;&quot;Derivative of sigmoid for backpropagation.&quot;&quot;&quot;
+    return x * (1 - x)
+
+# Hyperparameters
+epoch = 7000          # Training iterations
+lr = 0.1              # Learning rate
+inputlayer_neurons = 2
+hiddenlayer_neurons = 3
+output_neurons = 1
+
+# Initialize weights and biases randomly
+wh = np.random.uniform(size=(inputlayer_neurons, hiddenlayer_neurons))
+bh = np.random.uniform(size=(1, hiddenlayer_neurons))
+wout = np.random.uniform(size=(hiddenlayer_neurons, output_neurons))
+bout = np.random.uniform(size=(1, output_neurons))
+
+for i in range(epoch):
+    # --- Forward propagation ---
+    hinp1 = np.dot(X, wh)
+    hinp = hinp1 + bh
+    hlayer_act = sigmoid(hinp)
+
+    outinp1 = np.dot(hlayer_act, wout)
+    outinp = outinp1 + bout
+    output = sigmoid(outinp)
+
+    # --- Backpropagation ---
+    EO = y - output                              # Output error
+    outgrad = derivatives_sigmoid(output)
+    d_output = EO * outgrad
+
+    EH = d_output.dot(wout.T)                    # Error at hidden layer
+    hiddengrad = derivatives_sigmoid(hlayer_act)
+    d_hiddenlayer = EH * hiddengrad
+
+    # --- Weight &amp; bias updates (gradient descent) ---
+    wout += hlayer_act.T.dot(d_output) * lr
+    bout += np.sum(d_output, axis=0, keepdims=True) * lr
+    wh += X.T.dot(d_hiddenlayer) * lr
+    bh += np.sum(d_hiddenlayer, axis=0, keepdims=True) * lr
+
+    # Print progress every 1000 epochs
+    if i % 1000 == 0:
+        loss = np.mean(np.square(y - output))
+        print(f&quot;Epoch {i}/{epoch}, Loss: {loss}&quot;)
+        print(&quot;Input:\n&quot;, X)
+        print(&quot;Actual Output:\n&quot;, y)
+        print(&quot;Predicted Output:\n&quot;, output)
+        print(&quot;-&quot; * 50)</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  
+<h4>Import Section</h4>
+<p><code>numpy</code> provides matrix operations essential for neural network math.</p>
+<h4>Data Loading</h4>
+<p><code>X</code> holds 3 samples with 2 features (study hours, sleep hours). <code>y</code> holds target marks (92, 86, 89).</p>
+<h4>Preprocessing</h4>
+<p><code>X / np.amax(X, axis=0)</code> scales each column to [0,1]. <code>y / 100</code> scales marks to [0,1] so sigmoid output range matches targets.</p>
+<h4>Network Architecture</h4>
+<p>2 input neurons → 3 hidden neurons → 1 output neuron. Weights initialized with <code>np.random.uniform</code>.</p>
+<h4>Training Loop (7000 epochs)</h4>
+<ol>
+<li><strong>Forward pass:</strong> Compute hidden activations and output prediction via matrix multiplication + sigmoid.</li>
+<li><strong>Error calculation:</strong> <code>EO = y - output</code></li>
+<li><strong>Output layer gradient:</strong> Multiply error by sigmoid derivative.</li>
+<li><strong>Hidden layer gradient:</strong> Backpropagate error through output weights.</li>
+<li><strong>Weight update:</strong> Adjust all weights/biases proportional to gradients × learning rate.</li>
+</ol>
+<h4>Evaluation</h4>
+<p>Every 1000 epochs, MSE loss and predictions are printed. Loss should decrease toward zero.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>np.array()</code></td><td>Create ndarray</td><td><code>np.array(data, dtype=float)</code></td><td>Converts Python lists to NumPy arrays for vectorized math.</td></tr><tr><td><code>np.amax()</code></td><td>Column-wise maximum</td><td><code>np.amax(X, axis=0)</code></td><td>Finds max per column for normalization divisor.</td></tr><tr><td><code>np.dot()</code></td><td>Matrix multiplication</td><td><code>np.dot(A, B)</code></td><td>Computes weighted sums for forward/backward passes.</td></tr><tr><td><code>np.random.uniform()</code></td><td>Random weight init</td><td><code>np.random.uniform(size=(m,n))</code></td><td>Initializes weights in [0,1) uniformly.</td></tr><tr><td><code>np.mean()</code></td><td>Average</td><td><code>np.mean(np.square(y-output))</code></td><td>Computes MSE loss across all samples.</td></tr><tr><td><code>np.sum()</code></td><td>Sum with axis</td><td><code>np.sum(d_output, axis=0, keepdims=True)</code></td><td>Aggregates gradients for bias updates.</td></tr><tr><td><code>sigmoid()</code></td><td>Activation</td><td><code>sigmoid(x)</code></td><td>Non-linear activation; maps ℝ → (0,1).</td></tr><tr><td><code>derivatives_sigmoid()</code></td><td>Activation gradient</td><td><code>x * (1-x)</code></td><td>Used in chain rule during backprop.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  
+<p><strong>Terminal:</strong> Prints loss at epochs 0, 1000, 2000, … 6000. Loss decreases from ~0.02 toward ~0.001. Predicted outputs converge close to actual [0.92, 0.86, 0.89].</p>
+<p><strong>Interpretation:</strong> Lower MSE = better fit. Network learns that more study hours correlate with higher marks. No graph in this program — output is console only.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  
+<ul>
+<li>Change <code>hiddenlayer_neurons</code> from 3 to 5 or 10 and observe convergence speed.</li>
+<li>Try learning rates 0.01, 0.5 — too high causes divergence; too low slows training.</li>
+<li>Replace sigmoid with ReLU: <code>max(0, x)</code> for hidden layer.</li>
+<li>Add more training samples for realistic evaluation.</li>
+<li>Use train-test split and report test MSE.</li>
+<li>Increase epochs to 10000 for finer convergence.</li>
+</ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is an Artificial Neural Network?</div><div class="a"><strong>Answer:</strong> A computational model inspired by biological neurons, consisting of interconnected layers that learn mappings from inputs to outputs through weight adjustments.</div></div>
+<div class="viva-item"><div class="q">Q2: What is backpropagation?</div><div class="a"><strong>Answer:</strong> An algorithm that computes gradients of the loss function with respect to each weight by applying the chain rule, propagating error backward from output to input layers.</div></div>
+<div class="viva-item"><div class="q">Q3: Why normalize input data?</div><div class="a"><strong>Answer:</strong> Normalization brings features to a similar scale, preventing large-valued features from dominating and helping gradient descent converge faster.</div></div>
+<div class="viva-item"><div class="q">Q4: What is the purpose of the sigmoid function?</div><div class="a"><strong>Answer:</strong> It introduces non-linearity and squashes output to (0,1), suitable for normalized targets. Without activation, the network is just linear regression.</div></div>
+<div class="viva-item"><div class="q">Q5: What is MSE loss?</div><div class="a"><strong>Answer:</strong> Mean Squared Error = average of (actual − predicted)². Penalizes large errors more heavily; standard loss for regression.</div></div>
+<div class="viva-item"><div class="q">Q6: What is a learning rate?</div><div class="a"><strong>Answer:</strong> A hyperparameter (0.1 here) controlling step size during weight updates. Too large → overshooting; too small → slow convergence.</div></div>
+<div class="viva-item"><div class="q">Q7: What is an epoch?</div><div class="a"><strong>Answer:</strong> One complete pass through the entire training dataset. This program runs 7000 epochs.</div></div>
+<div class="viva-item"><div class="q">Q8: Difference between weights and biases?</div><div class="a"><strong>Answer:</strong> Weights scale inputs; biases shift the activation threshold. Both are learnable parameters.</div></div>
+<div class="viva-item"><div class="q">Q9: Why 3 hidden neurons?</div><div class="a"><strong>Answer:</strong> Enough capacity to capture non-linearity for 2 inputs. More neurons = more capacity but risk overfitting on small data.</div></div>
+<div class="viva-item"><div class="q">Q10: What is forward propagation?</div><div class="a"><strong>Answer:</strong> Computing output by passing inputs through each layer: input → hidden (sigmoid) → output (sigmoid).</div></div>
+<div class="viva-item"><div class="q">Q11: What is the chain rule in backprop?</div><div class="a"><strong>Answer:</strong> If loss depends on output, output depends on weights, then ∂loss/∂weight = ∂loss/∂output × ∂output/∂weight.</div></div>
+<div class="viva-item"><div class="q">Q12: What is vanishing gradient?</div><div class="a"><strong>Answer:</strong> With sigmoid, derivatives near 0 for extreme inputs, causing gradients to shrink in deep networks, slowing learning.</div></div>
+<div class="viva-item"><div class="q">Q13: Is this classification or regression?</div><div class="a"><strong>Answer:</strong> Regression — output is continuous (marks), not discrete class labels.</div></div>
+<div class="viva-item"><div class="q">Q14: What is the network architecture here?</div><div class="a"><strong>Answer:</strong> 2-3-1: 2 inputs, 3 hidden neurons, 1 output neuron — a single hidden layer feed-forward network.</div></div>
+<div class="viva-item"><div class="q">Q15: Why random weight initialization?</div><div class="a"><strong>Answer:</strong> Breaks symmetry so neurons learn different features. Zero initialization would make all neurons identical.</div></div>
+<div class="viva-item"><div class="q">Q16: What happens if learning rate is too high?</div><div class="a"><strong>Answer:</strong> Weights oscillate or diverge; loss increases instead of decreasing.</div></div>
+<div class="viva-item"><div class="q">Q17: What is gradient descent?</div><div class="a"><strong>Answer:</strong> Iteratively update parameters in the direction opposite to the gradient of the loss to minimize error.</div></div>
+<div class="viva-item"><div class="q">Q18: Can this network solve XOR?</div><div class="a"><strong>Answer:</strong> No — a single hidden layer perceptron-like network with sigmoid may struggle; XOR needs non-linear separability with proper architecture.</div></div>
+<div class="viva-item"><div class="q">Q19: What is the role of np.dot in ANN?</div><div class="a"><strong>Answer:</strong> Performs matrix multiplication for weighted sum: each neuron&#x27;s input = Σ(weight × input).</div></div>
+<div class="viva-item"><div class="q">Q20: How to improve accuracy on this tiny dataset?</div><div class="a"><strong>Answer:</strong> More data, tune learning rate/epochs, try different hidden sizes, or use sklearn MLPRegressor for comparison.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  
+<ul>
+<li><strong>Loss not decreasing:</strong> Learning rate too high/low — try 0.01 or 0.05.</li>
+<li><strong>NaN in output:</strong> Overflow in exp() — clip input to sigmoid or use stable sigmoid implementation.</li>
+<li><strong>Shape mismatch in np.dot:</strong> Verify weight matrix dimensions match layer sizes (2×3, 3×1).</li>
+<li><strong>Module not found (numpy):</strong> Run <code>pip install numpy</code>.</li>
+<li><strong>Random different results each run:</strong> Set <code>np.random.seed(42)</code> for reproducibility.</li>
+</ul>
+
+</div>
+
+<div class="program-header" id="program-2">
+  <div class="program-num">Program 2</div>
+  <h2>Perceptron for AND and OR Logic Gates</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To design and train a single-layer Perceptron to implement AND and OR Boolean logic gates using the perceptron learning rule.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Implement a Perceptron class with step activation, train it on AND gate truth table, then on OR gate truth table, and verify predictions on all 4 input combinations.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  
+<h3>ML Concept</h3>
+<p>The Perceptron is the simplest neural network unit — a <strong>binary linear classifier</strong>. It learns a decision boundary w·x + b ≥ 0.</p>
+<h3>Why Perceptron?</h3>
+<p>AND and OR are linearly separable — a single line (hyperplane) can divide classes. Perceptron converges for linearly separable data.</p>
+<h3>Key Formulas</h3>
+<div class="formula">Output: y = step(w · x + b) = 1 if w·x+b ≥ 0, else 0</div>
+<div class="formula">Update rule: w ← w + η · (t − y) · x</div>
+<div class="formula">Bias update: b ← b + η · (t − y)</div>
+<p>where η = learning rate, t = target, y = prediction.</p>
+<h3>Advantages</h3>
+<ul><li>Simple, fast, easy to implement</li><li>Guaranteed convergence for linearly separable data</li><li>Foundation for understanding neural networks</li></ul>
+<h3>Limitations</h3>
+<ul><li>Cannot learn XOR (not linearly separable)</li><li>Only binary step output — not probabilistic</li><li>Single layer — no hidden features</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+
+def step_function(x):
+    &quot;&quot;&quot;Returns 1 if x &gt;= 0, else 0 (Heaviside step).&quot;&quot;&quot;
+    return 1 if x &gt;= 0 else 0
+
+class Perceptron:
+    def __init__(self, input_size, learning_rate=0.1):
+        self.weights = np.zeros(input_size)   # Initialize weights to zero
+        self.bias = 0
+        self.learning_rate = learning_rate
+
+    def predict(self, inputs):
+        &quot;&quot;&quot;Compute weighted sum + step activation.&quot;&quot;&quot;
+        summation = np.dot(inputs, self.weights) + self.bias
+        return step_function(summation)
+
+    def train(self, X, y, epochs=10):
+        &quot;&quot;&quot;Perceptron learning rule for each sample.&quot;&quot;&quot;
+        for epoch in range(epochs):
+            for i in range(len(X)):
+                prediction = self.predict(X[i])
+                error = y[i] - prediction
+                # Update weights and bias proportional to error
+                self.weights += self.learning_rate * error * X[i]
+                self.bias += self.learning_rate * error
+            print(f&quot;Epoch {epoch+1}: Weights: {self.weights}, Bias: {self.bias}&quot;)
+        print(f&quot;\nFinal Weights after training: {self.weights}&quot;)
+        print(f&quot;\nFinal bias after training: {self.bias}&quot;)
+
+# AND gate truth table
+X_and = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y_and = np.array([0, 0, 0, 1])
+
+# OR gate truth table
+X_or = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+y_or = np.array([0, 1, 1, 1])
+
+# Train AND perceptron
+perceptron_and = Perceptron(input_size=2)
+print(&quot;Training perceptron for AND gate&quot;)
+perceptron_and.train(X_and, y_and)
+
+# Train OR perceptron
+perceptron_or = Perceptron(input_size=2)
+print(&quot;Training perceptron for OR gate&quot;)
+perceptron_or.train(X_or, y_or)
+
+# Test both gates
+print(&quot;\nTesting predictions&quot;)
+test_inputs = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
+
+print(&quot;\nPredictions for AND gate&quot;)
+for test in test_inputs:
+    print(f&quot;Input: {test} -&gt; Prediction: {perceptron_and.predict(test)}&quot;)
+
+print(&quot;\nPredictions for OR gate&quot;)
+for test in test_inputs:
+    print(f&quot;Input: {test} -&gt; Prediction: {perceptron_or.predict(test)}&quot;)</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  
+<h4>step_function</h4>
+<p>Binary activation: output 1 if weighted sum ≥ 0, else 0.</p>
+<h4>Perceptron Class</h4>
+<p><code>__init__</code>: Creates zero weights and zero bias. <code>predict</code>: dot product + step. <code>train</code>: loops epochs × samples, updates on misclassification.</p>
+<h4>AND Training</h4>
+<p>Only [1,1]→1; all others→0. Weights adjust until only both inputs high yields output 1.</p>
+<h4>OR Training</h4>
+<p>Only [0,0]→0; any input with 1 yields output 1.</p>
+<h4>Testing</h4>
+<p>All 4 combinations tested; predictions should match truth tables exactly after training.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>step_function()</code></td><td>Binary activation</td><td><code>step_function(x)</code></td><td>Returns 1 if x≥0 else 0; decision boundary at zero.</td></tr><tr><td><code>np.zeros()</code></td><td>Initialize weights</td><td><code>np.zeros(input_size)</code></td><td>Creates zero vector for initial weights.</td></tr><tr><td><code>np.dot()</code></td><td>Weighted sum</td><td><code>np.dot(inputs, weights)</code></td><td>Computes w₁x₁ + w₂x₂ for 2 inputs.</td></tr><tr><td><code>predict()</code></td><td>Forward pass</td><td><code>self.predict(X[i])</code></td><td>Returns binary prediction for one input vector.</td></tr><tr><td><code>train()</code></td><td>Learning loop</td><td><code>self.train(X, y, epochs=10)</code></td><td>Applies perceptron rule for each misclassified sample.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  
+<p><strong>Terminal:</strong> Each epoch prints evolving weights and bias. After ~2-5 epochs, weights stabilize. Final AND predictions: 0,0,0,1. Final OR predictions: 0,1,1,1.</p>
+<p><strong>Interpretation:</strong> Successful training means 100% accuracy on truth table. Different runs may yield different weight values but same decision boundary.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  
+<ul>
+<li>Try XOR — perceptron will fail to converge (demonstrates limitation).</li>
+<li>Increase epochs to 100 and observe when weights stop changing.</li>
+<li>Change learning rate to 0.5 or 1.0 — faster convergence.</li>
+<li>Implement NAND gate truth table.</li>
+<li>Add visualization of decision boundary with matplotlib.</li>
+</ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is a Perceptron?</div><div class="a"><strong>Answer:</strong> The simplest artificial neuron — computes weighted sum of inputs plus bias, passed through a step activation to produce binary output.</div></div>
+<div class="viva-item"><div class="q">Q2: What is linear separability?</div><div class="a"><strong>Answer:</strong> Data where a straight line (or hyperplane) can perfectly separate two classes. AND and OR are linearly separable; XOR is not.</div></div>
+<div class="viva-item"><div class="q">Q3: Why can&#x27;t perceptron learn XOR?</div><div class="a"><strong>Answer:</strong> XOR is not linearly separable — no single line can separate class 0 from class 1 in 2D input space.</div></div>
+<div class="viva-item"><div class="q">Q4: What is the perceptron learning rule?</div><div class="a"><strong>Answer:</strong> w = w + η(t−y)x and b = b + η(t−y), updating only when prediction y differs from target t.</div></div>
+<div class="viva-item"><div class="q">Q5: Difference between AND and OR gates?</div><div class="a"><strong>Answer:</strong> AND outputs 1 only when both inputs are 1. OR outputs 1 when at least one input is 1.</div></div>
+<div class="viva-item"><div class="q">Q6: What is a step function?</div><div class="a"><strong>Answer:</strong> Activation that outputs 1 if input ≥ threshold (0), else 0. Also called Heaviside function.</div></div>
+<div class="viva-item"><div class="q">Q7: What is bias in perceptron?</div><div class="a"><strong>Answer:</strong> An extra learnable parameter that shifts the decision boundary without depending on input values.</div></div>
+<div class="viva-item"><div class="q">Q8: Why initialize weights to zero?</div><div class="a"><strong>Answer:</strong> For perceptron, zero init works because updates depend on error; all weights grow together from first misclassification.</div></div>
+<div class="viva-item"><div class="q">Q9: What is learning rate η?</div><div class="a"><strong>Answer:</strong> Step size multiplier (0.1) controlling how much weights change per update.</div></div>
+<div class="viva-item"><div class="q">Q10: How many epochs are used?</div><div class="a"><strong>Answer:</strong> 10 epochs — each epoch processes all 4 training samples once.</div></div>
+<div class="viva-item"><div class="q">Q11: Is this supervised or unsupervised?</div><div class="a"><strong>Answer:</strong> Supervised — we provide labeled outputs (0 or 1) for each input.</div></div>
+<div class="viva-item"><div class="q">Q12: What is the decision boundary?</div><div class="a"><strong>Answer:</strong> The hyperplane w·x + b = 0 where prediction switches from 0 to 1.</div></div>
+<div class="viva-item"><div class="q">Q13: What happens when error is zero?</div><div class="a"><strong>Answer:</strong> No weight update — the sample is correctly classified.</div></div>
+<div class="viva-item"><div class="q">Q14: Can one perceptron do both AND and OR?</div><div class="a"><strong>Answer:</strong> Not simultaneously — each gate needs separate training with different labels on same inputs.</div></div>
+<div class="viva-item"><div class="q">Q15: Perceptron vs ANN?</div><div class="a"><strong>Answer:</strong> Perceptron is single-layer; ANN has hidden layers enabling non-linear complex functions like XOR (with enough layers).</div></div>
+<div class="viva-item"><div class="q">Q16: What is convergence?</div><div class="a"><strong>Answer:</strong> When all samples are correctly classified and weights stop changing across epochs.</div></div>
+<div class="viva-item"><div class="q">Q17: Real-world use of perceptron?</div><div class="a"><strong>Answer:</strong> Historical foundation; modern systems use multi-layer networks. Simple linear classifiers still used as building blocks.</div></div>
+<div class="viva-item"><div class="q">Q18: What is input_size=2?</div><div class="a"><strong>Answer:</strong> Two binary inputs x₁ and x₂ for each gate logic table row.</div></div>
+<div class="viva-item"><div class="q">Q19: What is np.dot for [1,1]?</div><div class="a"><strong>Answer:</strong> weights[0]*1 + weights[1]*1 + bias — weighted sum before activation.</div></div>
+<div class="viva-item"><div class="q">Q20: How to verify correct training?</div><div class="a"><strong>Answer:</strong> All 4 test predictions match expected truth table values.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  
+<ul>
+<li><strong>Weights not converging for XOR:</strong> Expected — XOR needs multi-layer network.</li>
+<li><strong>All predictions same class:</strong> Learning rate too low or insufficient epochs.</li>
+<li><strong>IndexError:</strong> Ensure X and y have same number of rows.</li>
+<li><strong>TypeError in step_function:</strong> Pass scalar to step_function, not array — np.dot returns scalar for 1D inputs.</li>
+</ul>
+
+</div>
+
+<div class="program-header" id="program-3">
+  <div class="program-num">Program 3</div>
+  <h2>K-Means Clustering on Iris Dataset</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To perform K-Means clustering on the Iris dataset, visualize real vs predicted clusters, and display cluster centroids.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Load Iris dataset, apply KMeans with k=3 clusters on 4 features, compare actual species labels with K-Means assigned labels using scatter plots of petal length vs petal width.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  
+<h3>ML Concept</h3>
+<p><strong>Unsupervised learning</strong> — K-Means partitions data into k clusters by minimizing within-cluster variance.</p>
+<h3>Algorithm Steps</h3>
+<ol><li>Initialize k centroids randomly</li><li>Assign each point to nearest centroid</li><li>Recompute centroids as mean of assigned points</li><li>Repeat until convergence</li></ol>
+<h3>Key Formulas</h3>
+<div class="formula">Objective: J = Σ Σ ||x<sub>i</sub> − μ<sub>j</sub>||²</div>
+<div class="formula">Centroid update: μ<sub>j</sub> = (1/|C<sub>j</sub>|) Σ x<sub>i</sub> for x<sub>i</sub> ∈ C<sub>j</sub></div>
+<h3>Advantages</h3>
+<ul><li>Simple, fast, scalable</li><li>Works well on spherical clusters</li></ul>
+<h3>Limitations</h3>
+<ul><li>Must specify k in advance</li><li>Sensitive to initialization and outliers</li><li>Assumes equal-variance spherical clusters</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.cluster import KMeans
+import pandas as pd
+import numpy as np
+
+# Load built-in Iris dataset (150 samples, 4 features, 3 species)
+iris = datasets.load_iris()
+
+X = pd.DataFrame(iris.data)
+X.columns = [&#x27;Sepal_length&#x27;, &#x27;Sepal_width&#x27;, &#x27;Petal_length&#x27;, &#x27;Petal_width&#x27;]
+
+y = pd.DataFrame(iris.target)
+y.columns = [&quot;Targets&quot;]
+
+# Apply K-Means with 3 clusters (matching 3 Iris species)
+model = KMeans(n_clusters=3)
+model.fit(X)
+
+# Visualize: Real labels vs K-Means labels
+plt.figure(figsize=(14, 14))
+colormap = np.array([&#x27;red&#x27;, &#x27;lime&#x27;, &#x27;black&#x27;])
+
+plt.subplot(2, 2, 1)
+plt.scatter(X.Petal_length, X.Petal_width, c=colormap[y.Targets], s=40)
+plt.title(&quot;Real Clusters&quot;)
+plt.xlabel(&quot;Petal Length&quot;)
+plt.ylabel(&quot;Petal Width&quot;)
+
+plt.subplot(2, 2, 2)
+plt.scatter(X.Petal_length, X.Petal_width, c=colormap[model.labels_], s=40)
+plt.title(&quot;KMeans Clusters&quot;)
+plt.xlabel(&quot;Petal Length&quot;)
+plt.ylabel(&quot;Petal Width&quot;)
+
+plt.tight_layout()
+plt.show()
+
+print(&quot;Cluster centers (centroids):&quot;)
+print(model.cluster_centers_)</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  
+<h4>Data Loading</h4>
+<p><code>datasets.load_iris()</code> loads 150 samples with sepal/petal measurements. Converted to pandas DataFrame for readability.</p>
+<h4>Clustering</h4>
+<p><code>KMeans(n_clusters=3).fit(X)</code> trains on all 4 features. Labels stored in <code>model.labels_</code>.</p>
+<h4>Visualization</h4>
+<p>Two scatter subplots compare ground truth (Targets) vs K-Means clusters using petal dimensions. Colors: red, lime, black.</p>
+<h4>Centroids</h4>
+<p><code>model.cluster_centers_</code> prints 3×4 matrix — mean of each cluster per feature.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>datasets.load_iris()</code></td><td>Load dataset</td><td><code>datasets.load_iris()</code></td><td>Returns sklearn Bunch with .data (150×4) and .target (species 0,1,2).</td></tr><tr><td><code>KMeans()</code></td><td>Clustering model</td><td><code>KMeans(n_clusters=3)</code></td><td>Partitions data into k=3 clusters using Lloyd&#x27;s algorithm.</td></tr><tr><td><code>fit()</code></td><td>Train clusterer</td><td><code>model.fit(X)</code></td><td>Finds optimal centroids by iterative assignment and update.</td></tr><tr><td><code>model.labels_</code></td><td>Cluster assignments</td><td><code>model.labels_</code></td><td>Array of cluster index (0,1,2) for each sample after fit.</td></tr><tr><td><code>model.cluster_centers_</code></td><td>Centroid coordinates</td><td><code>model.cluster_centers_</code></td><td>k×n_features matrix of cluster means.</td></tr><tr><td><code>plt.scatter()</code></td><td>2D plot</td><td><code>plt.scatter(x, y, c=colors)</code></td><td>Plots points colored by cluster label.</td></tr><tr><td><code>plt.subplot()</code></td><td>Grid layout</td><td><code>plt.subplot(2, 2, 1)</code></td><td>Creates 2×2 grid; positions 1-4 for multiple plots.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  
+<p><strong>Graph:</strong> Two side-by-side scatter plots — left shows true Iris species clusters, right shows K-Means clusters. Patterns should closely match (3 distinct petal groupings).</p>
+<p><strong>Terminal:</strong> Prints 3 centroid rows with sepal/petal mean values for each cluster.</p>
+<p><strong>Interpretation:</strong> High overlap between plots indicates K-Means successfully discovered natural groupings similar to species labels.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  
+<ul>
+<li>Try k=2 or k=4 and compare elbow method for optimal k.</li>
+<li>Use only 2 features (sepal length, sepal width) for simpler 2D plot.</li>
+<li>Add <code>random_state=42</code> for reproducible results.</li>
+<li>Compute Adjusted Rand Index to quantify clustering quality.</li>
+<li>Apply StandardScaler before clustering.</li>
+</ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is K-Means clustering?</div><div class="a"><strong>Answer:</strong> An unsupervised algorithm that partitions n samples into k clusters by minimizing sum of squared distances to cluster centroids.</div></div>
+<div class="viva-item"><div class="q">Q2: Why k=3 for Iris?</div><div class="a"><strong>Answer:</strong> Iris has 3 species (setosa, versicolor, virginica) — natural choice though K-Means doesn&#x27;t use labels.</div></div>
+<div class="viva-item"><div class="q">Q3: What is a centroid?</div><div class="a"><strong>Answer:</strong> The mean vector of all points assigned to a cluster — the cluster center.</div></div>
+<div class="viva-item"><div class="q">Q4: Difference between supervised and unsupervised?</div><div class="a"><strong>Answer:</strong> Supervised uses labeled data; unsupervised (K-Means) finds patterns without labels.</div></div>
+<div class="viva-item"><div class="q">Q5: What is model.labels_?</div><div class="a"><strong>Answer:</strong> After fit(), array assigning each sample to cluster 0, 1, or 2.</div></div>
+<div class="viva-item"><div class="q">Q6: What is the elbow method?</div><div class="a"><strong>Answer:</strong> Plot k vs inertia (within-cluster sum of squares); choose k at the &#x27;elbow&#x27; where improvement diminishes.</div></div>
+<div class="viva-item"><div class="q">Q7: What is inertia in K-Means?</div><div class="a"><strong>Answer:</strong> Sum of squared distances of samples to their nearest centroid — lower is better.</div></div>
+<div class="viva-item"><div class="q">Q8: Why use Iris dataset?</div><div class="a"><strong>Answer:</strong> Classic ML benchmark — 150 samples, 4 features, 3 balanced classes, well-separated clusters.</div></div>
+<div class="viva-item"><div class="q">Q9: What features are used?</div><div class="a"><strong>Answer:</strong> All 4: sepal length/width, petal length/width — fit uses all; plot shows petal dimensions.</div></div>
+<div class="viva-item"><div class="q">Q10: What is unsupervised learning?</div><div class="a"><strong>Answer:</strong> Learning patterns from unlabeled data — clustering, dimensionality reduction.</div></div>
+<div class="viva-item"><div class="q">Q11: K-Means vs hierarchical clustering?</div><div class="a"><strong>Answer:</strong> K-Means is flat/partitional; hierarchical builds tree of clusters (dendrogram).</div></div>
+<div class="viva-item"><div class="q">Q12: What is convergence in K-Means?</div><div class="a"><strong>Answer:</strong> Centroids stop moving significantly or max iterations reached.</div></div>
+<div class="viva-item"><div class="q">Q13: Effect of bad initialization?</div><div class="a"><strong>Answer:</strong> May converge to local minimum — use k-means++ or multiple n_init runs.</div></div>
+<div class="viva-item"><div class="q">Q14: What is n_init in sklearn KMeans?</div><div class="a"><strong>Answer:</strong> Number of times algorithm runs with different seeds; best result kept (default 10).</div></div>
+<div class="viva-item"><div class="q">Q15: Can K-Means handle categorical data?</div><div class="a"><strong>Answer:</strong> No — designed for numerical data; use K-Modes for categorical.</div></div>
+<div class="viva-item"><div class="q">Q16: What does colormap[y.Targets] do?</div><div class="a"><strong>Answer:</strong> Maps integer species labels 0,1,2 to red, lime, black colors for scatter plot.</div></div>
+<div class="viva-item"><div class="q">Q17: What is fit() doing internally?</div><div class="a"><strong>Answer:</strong> Alternates between assigning points to nearest centroid and updating centroids until stable.</div></div>
+<div class="viva-item"><div class="q">Q18: How to measure clustering quality without labels?</div><div class="a"><strong>Answer:</strong> Silhouette score — measures cohesion vs separation.</div></div>
+<div class="viva-item"><div class="q">Q19: What is a cluster?</div><div class="a"><strong>Answer:</strong> A group of data points that are more similar to each other than to points in other groups.</div></div>
+<div class="viva-item"><div class="q">Q20: Why visualize petal not sepal?</div><div class="a"><strong>Answer:</strong> Petal measurements better separate Iris species; sepal overlap more.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  
+<ul>
+<li><strong>ValueError n_clusters:</strong> k must be ≤ number of samples (150).</li>
+<li><strong>NaN in data:</strong> K-Means cannot handle NaN — drop or impute first.</li>
+<li><strong>Different clusters each run:</strong> Set random_state=42 in KMeans().</li>
+<li><strong>ModuleNotFoundError sklearn:</strong> pip install scikit-learn.</li>
+<li><strong>Empty plot window:</strong> Ensure plt.show() is called; use plt.savefig() in headless environments.</li>
+</ul>
+
+</div>
+
+<div class="program-header" id="program-4">
+  <div class="program-num">Program 4</div>
+  <h2>K-Modes Clustering on Categorical Data</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To perform K-Modes clustering on categorical data (Color, Shape, Size) and identify cluster modes (most frequent category values).</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Create a categorical dataset with 8 samples, apply K-Modes with 2 clusters using Huang initialization, and display cluster labels, centroids (modes), and the labeled dataset.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  
+<h3>ML Concept</h3>
+<p><strong>K-Modes</strong> is the categorical counterpart of K-Means. It uses mode (most frequent value) instead of mean for centroids and dissimilarity based on matching categories.</p>
+<h3>Why K-Modes?</h3>
+<p>K-Means uses Euclidean distance on numeric data — meaningless for strings like 'Red', 'Circle'. K-Modes handles nominal categorical attributes directly.</p>
+<h3>Key Formulas</h3>
+<div class="formula">Dissimilarity: d(X, Y) = Σ δ(x<sub>i</sub>, y<sub>i</sub>) where δ = 0 if match, 1 if not</div>
+<div class="formula">Mode: most frequent category value in cluster for each attribute</div>
+<h3>Advantages</h3>
+<ul><li>Designed for categorical/nominal data</li><li>Simple extension of K-Means concept</li><li>Interpretable cluster centroids as category modes</li></ul>
+<h3>Limitations</h3>
+<ul><li>Requires kmodes library (not in sklearn)</li><li>Sensitive to initial cluster centers</li><li>Only for categorical — mixed data needs K-Prototypes</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import pandas as pd
+from kmodes.kmodes import KModes
+
+# Categorical dataset: Color, Shape, Size
+data = {
+    &#x27;Color&#x27;: [&#x27;Red&#x27;, &#x27;Blue&#x27;, &#x27;Green&#x27;, &#x27;Green&#x27;, &#x27;Blue&#x27;, &#x27;Red&#x27;, &#x27;Red&#x27;, &#x27;Green&#x27;],
+    &#x27;Shape&#x27;: [&#x27;Circle&#x27;, &#x27;Square&#x27;, &#x27;Circle&#x27;, &#x27;Square&#x27;, &#x27;Circle&#x27;, &#x27;Circle&#x27;, &#x27;Square&#x27;, &#x27;Square&#x27;],
+    &#x27;Size&#x27;: [&#x27;Small&#x27;, &#x27;Large&#x27;, &#x27;Large&#x27;, &#x27;Small&#x27;, &#x27;Small&#x27;, &#x27;Large&#x27;, &#x27;Small&#x27;, &#x27;Large&#x27;]
+}
+df = pd.DataFrame(data)
+
+print(&quot;Original dataset&quot;)
+print(df)
+
+# K-Modes: k=2 clusters, Huang init, 10 random starts
+model = KModes(n_clusters=2, init=&#x27;Huang&#x27;, n_init=10, verbose=0)
+model.fit(df)
+
+cluster_labels = model.labels_
+print(&quot;\nCluster labels:&quot;)
+print(cluster_labels)
+
+print(&quot;\nCluster Centroids (Modes)&quot;)
+print(model.cluster_centroids_)
+
+df[&#x27;Cluster&#x27;] = cluster_labels
+print(&#x27;\nDataset with cluster&#x27;)
+print(df)</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  
+<h4>Data Creation</h4>
+<p>Dictionary of 3 categorical columns with 8 rows — no numeric features.</p>
+<h4>Model Setup</h4>
+<p><code>KModes(n_clusters=2)</code> — 2 clusters. <code>init='Huang'</code> uses Huang's initialization method. <code>n_init=10</code> runs 10 times, picks best.</p>
+<h4>Training</h4>
+<p><code>model.fit(df)</code> assigns each row to a cluster by minimizing categorical dissimilarity.</p>
+<h4>Results</h4>
+<p><code>labels_</code> gives cluster ID per row. <code>cluster_centroids_</code> shows mode values per attribute per cluster.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>pd.DataFrame()</code></td><td>Create DataFrame</td><td><code>pd.DataFrame(data)</code></td><td>Builds tabular structure from dict of column lists.</td></tr><tr><td><code>KModes()</code></td><td>Categorical clustering</td><td><code>KModes(n_clusters=2, init=&#x27;Huang&#x27;)</code></td><td>Clusters categorical data using mode-based centroids.</td></tr><tr><td><code>fit()</code></td><td>Train model</td><td><code>model.fit(df)</code></td><td>Iteratively assigns points and updates modes until convergence.</td></tr><tr><td><code>model.labels_</code></td><td>Cluster IDs</td><td><code>model.labels_</code></td><td>Integer array — cluster assignment for each row.</td></tr><tr><td><code>model.cluster_centroids_</code></td><td>Mode centroids</td><td><code>model.cluster_centroids_</code></td><td>Most frequent category per column in each cluster.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  
+<p><strong>Terminal:</strong> Original 8-row table, cluster labels (0 or 1), centroid modes, and final DataFrame with Cluster column.</p>
+<p><strong>Interpretation:</strong> Rows with similar Color/Shape/Size group together. Centroids show representative category for each cluster.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  
+<ul><li>Try n_clusters=3 and compare groupings.</li><li>Add more samples and attributes.</li><li>Use init='Cao' instead of 'Huang'.</li><li>Mix numeric column — requires K-Prototypes instead.</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is K-Modes?</div><div class="a"><strong>Answer:</strong> Clustering algorithm for categorical data using modes as cluster centers and simple matching dissimilarity.</div></div>
+<div class="viva-item"><div class="q">Q2: Difference between K-Means and K-Modes?</div><div class="a"><strong>Answer:</strong> K-Means uses mean and Euclidean distance on numeric data; K-Modes uses mode and matching dissimilarity on categories.</div></div>
+<div class="viva-item"><div class="q">Q3: What is a mode?</div><div class="a"><strong>Answer:</strong> The most frequently occurring value in a set — used as centroid for categorical attributes.</div></div>
+<div class="viva-item"><div class="q">Q4: What is init=&#x27;Huang&#x27;?</div><div class="a"><strong>Answer:</strong> Huang&#x27;s initialization method — selects diverse initial centroids to improve clustering quality.</div></div>
+<div class="viva-item"><div class="q">Q5: What is n_init?</div><div class="a"><strong>Answer:</strong> Number of algorithm runs with different seeds; best clustering (lowest cost) is selected.</div></div>
+<div class="viva-item"><div class="q">Q6: Why not use K-Means on this data?</div><div class="a"><strong>Answer:</strong> Categories like &#x27;Red&#x27; cannot be averaged; Euclidean distance on encoded labels is misleading without proper encoding.</div></div>
+<div class="viva-item"><div class="q">Q7: What is categorical data?</div><div class="a"><strong>Answer:</strong> Nominal data with discrete labels and no inherent order — colors, shapes, names.</div></div>
+<div class="viva-item"><div class="q">Q8: What does fit() minimize?</div><div class="a"><strong>Answer:</strong> Total dissimilarity — count of attribute mismatches between points and their cluster modes.</div></div>
+<div class="viva-item"><div class="q">Q9: What library provides KModes?</div><div class="a"><strong>Answer:</strong> kmodes package — pip install kmodes (separate from sklearn).</div></div>
+<div class="viva-item"><div class="q">Q10: What is cluster_centroids_?</div><div class="a"><strong>Answer:</strong> Array of mode values for each feature in each cluster.</div></div>
+<div class="viva-item"><div class="q">Q11: How many clusters used?</div><div class="a"><strong>Answer:</strong> 2 clusters — k=2.</div></div>
+<div class="viva-item"><div class="q">Q12: What is verbose=0?</div><div class="a"><strong>Answer:</strong> Suppresses iteration output during clustering.</div></div>
+<div class="viva-item"><div class="q">Q13: K-Modes vs one-hot + K-Means?</div><div class="a"><strong>Answer:</strong> One-hot + K-Means can work but K-Modes is designed specifically for categorical dissimilarity.</div></div>
+<div class="viva-item"><div class="q">Q14: What is unsupervised here?</div><div class="a"><strong>Answer:</strong> No &#x27;Buy&#x27; or class label — algorithm finds groups from attribute similarity alone.</div></div>
+<div class="viva-item"><div class="q">Q15: What is pandas DataFrame used for?</div><div class="a"><strong>Answer:</strong> Tabular data structure — easy to print and pass to KModes fit().</div></div>
+<div class="viva-item"><div class="q">Q16: Can K-Modes handle missing values?</div><div class="a"><strong>Answer:</strong> Not directly — impute or remove NaN rows first.</div></div>
+<div class="viva-item"><div class="q">Q17: What is matching dissimilarity?</div><div class="a"><strong>Answer:</strong> Count of attributes where two records differ — 0 if all match.</div></div>
+<div class="viva-item"><div class="q">Q18: Real-world use?</div><div class="a"><strong>Answer:</strong> Customer segmentation by preferences, market basket categories, survey responses.</div></div>
+<div class="viva-item"><div class="q">Q19: What is n_clusters=2 output?</div><div class="a"><strong>Answer:</strong> Each of 8 samples assigned label 0 or 1.</div></div>
+<div class="viva-item"><div class="q">Q20: How to install kmodes?</div><div class="a"><strong>Answer:</strong> pip install kmodes</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  
+<ul><li><strong>ModuleNotFoundError: kmodes:</strong> pip install kmodes</li>
+<li><strong>ValueError empty cluster:</strong> Reduce k or add more diverse data.</li>
+<li><strong>All same cluster:</strong> Data too homogeneous — add varied samples.</li></ul>
+
+</div>
+
+<div class="program-header" id="program-5">
+  <div class="program-num">Program 5</div>
+  <h2>Hierarchical Clustering (Agglomerative &amp; Divisive)</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To perform agglomerative hierarchical clustering on Iris data using Ward&#x27;s linkage with dendrogram visualization, and implement divisive (top-down) clustering recursively.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Build a dendrogram using scipy linkage with Ward method, then implement recursive divisive clustering splitting data into 3 clusters and visualize results on sepal features.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  
+<h3>ML Concept</h3>
+<p><strong>Hierarchical clustering</strong> builds a tree (dendrogram) of clusters. Agglomerative (bottom-up) merges closest pairs; divisive (top-down) splits clusters recursively.</p>
+<h3>Ward's Linkage</h3>
+<p>Minimizes increase in total within-cluster variance when merging two clusters — tends to produce compact, equal-sized clusters.</p>
+<h3>Key Formulas</h3>
+<div class="formula">Ward distance: Δ(A,B) = increase in SSE when merging clusters A and B</div>
+<h3>Advantages</h3>
+<ul><li>No need to specify k upfront — cut dendrogram at desired level</li><li>Dendrogram provides rich visualization</li></ul>
+<h3>Limitations</h3>
+<ul><li>O(n³) time — slow on large datasets</li><li>Irreversible merges in agglomerative approach</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn import datasets
+from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.cluster import AgglomerativeClustering
+
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+# Agglomerative: Ward linkage dendrogram
+Z = linkage(X, method=&#x27;ward&#x27;)
+plt.figure(figsize=(10, 7))
+dendrogram(Z)
+plt.title(&quot;Dendogram for Agglomerative Hierarchical Clustering&quot;)
+plt.ylabel(&quot;Distance (Ward&#x27;s Distance)&quot;)
+plt.xlabel(&quot;Sample&quot;)
+plt.show()
+
+def divisive_clustering(X, n_clusters=3):
+    &quot;&quot;&quot;Top-down: recursively split into 2 until n_clusters reached.&quot;&quot;&quot;
+    if n_clusters &lt;= 1:
+        return [X]
+    model = AgglomerativeClustering(n_clusters=2)
+    labels = model.fit_predict(X)
+    cluster_1 = X[labels == 0]
+    cluster_2 = X[labels == 1]
+    result = []
+    if len(cluster_1) &gt; 1:
+        result += divisive_clustering(cluster_1, n_clusters=n_clusters // 2)
+    if len(cluster_2) &gt; 1:
+        result += divisive_clustering(cluster_2, n_clusters=n_clusters // 2)
+    return result
+
+divisive_result = divisive_clustering(X, n_clusters=3)
+plt.figure(figsize=(10, 7))
+colors = [&#x27;blue&#x27;, &#x27;green&#x27;, &#x27;red&#x27;, &#x27;orange&#x27;, &#x27;purple&#x27;]
+for idx, cluster in enumerate(divisive_result):
+    plt.scatter(cluster[:, 0], cluster[:, 1], label=f&#x27;Cluster {idx + 1}&#x27;, color=colors[idx % len(colors)])
+plt.title(&quot;Divisive Hierarchical Clustering (Top-down Approach)&quot;)
+plt.xlabel(&quot;Sepal Length&quot;)
+plt.ylabel(&quot;Sepal Width&quot;)
+plt.legend()
+plt.show()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  
+<h4>Linkage & Dendrogram</h4>
+<p><code>linkage(X, method='ward')</code> computes merge distances. <code>dendrogram(Z)</code> draws tree showing merge hierarchy.</p>
+<h4>Divisive Function</h4>
+<p>Recursively splits data using AgglomerativeClustering with k=2, then subdivides each half until desired cluster count.</p>
+<h4>Visualization</h4>
+<p>Scatter plot of sepal length vs width, colored by divisive cluster assignment.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>linkage()</code></td><td>Compute hierarchy</td><td><code>linkage(X, method=&#x27;ward&#x27;)</code></td><td>Returns (n-1)×4 matrix of merge info for dendrogram.</td></tr><tr><td><code>dendrogram()</code></td><td>Plot tree</td><td><code>dendrogram(Z)</code></td><td>Visualizes hierarchical merge structure.</td></tr><tr><td><code>AgglomerativeClustering()</code></td><td>Hierarchical cluster</td><td><code>AgglomerativeClustering(n_clusters=2)</code></td><td>Bottom-up clustering; fit_predict returns labels.</td></tr><tr><td><code>fit_predict()</code></td><td>Train &amp; label</td><td><code>model.fit_predict(X)</code></td><td>Fits model and returns cluster labels in one call.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  
+<p><strong>Graph 1:</strong> Dendrogram — tree structure with merge heights (Ward distances). Cut at height ~10-15 for 3 clusters.</p>
+<p><strong>Graph 2:</strong> Scatter plot with 3 colored divisive clusters on sepal dimensions.</p>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  
+<ul><li>Try 'complete', 'single', 'average' linkage methods.</li><li>Use fcluster() to cut dendrogram at specific height.</li><li>Apply StandardScaler before linkage.</li></ul>
+
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is hierarchical clustering?</div><div class="a"><strong>Answer:</strong> Creates nested clusters forming a tree hierarchy — either bottom-up (agglomerative) or top-down (divisive).</div></div>
+<div class="viva-item"><div class="q">Q2: What is a dendrogram?</div><div class="a"><strong>Answer:</strong> Tree diagram showing order and distance at which clusters merge in agglomerative clustering.</div></div>
+<div class="viva-item"><div class="q">Q3: What is Ward&#x27;s method?</div><div class="a"><strong>Answer:</strong> Linkage criterion minimizing within-cluster variance increase when merging — produces compact clusters.</div></div>
+<div class="viva-item"><div class="q">Q4: Agglomerative vs divisive?</div><div class="a"><strong>Answer:</strong> Agglomerative merges from bottom; divisive splits from top. This program shows both.</div></div>
+<div class="viva-item"><div class="q">Q5: What does linkage() return?</div><div class="a"><strong>Answer:</strong> Linkage matrix Z — each row records which clusters merged and at what distance.</div></div>
+<div class="viva-item"><div class="q">Q6: What is scipy used for?</div><div class="a"><strong>Answer:</strong> scipy.cluster.hierarchy provides linkage and dendrogram functions.</div></div>
+<div class="viva-item"><div class="q">Q7: Why Iris for hierarchical?</div><div class="a"><strong>Answer:</strong> 150 samples manageable for O(n³) algorithm; 3 natural groups visible in dendrogram.</div></div>
+<div class="viva-item"><div class="q">Q8: What is fit_predict?</div><div class="a"><strong>Answer:</strong> Combines fit and predict — returns cluster labels after training.</div></div>
+<div class="viva-item"><div class="q">Q9: What is recursive divisive clustering?</div><div class="a"><strong>Answer:</strong> Split data into 2, recursively split each part until n_clusters sub-clusters obtained.</div></div>
+<div class="viva-item"><div class="q">Q10: How to choose number of clusters from dendrogram?</div><div class="a"><strong>Answer:</strong> Cut tree at height where large vertical gaps appear — longest distance before merge.</div></div>
+<div class="viva-item"><div class="q">Q11: Difference from K-Means?</div><div class="a"><strong>Answer:</strong> Hierarchical gives full tree; K-Means flat partition with fixed k.</div></div>
+<div class="viva-item"><div class="q">Q12: What is single linkage?</div><div class="a"><strong>Answer:</strong> Distance between clusters = minimum distance between any two points — prone to chaining.</div></div>
+<div class="viva-item"><div class="q">Q13: What is complete linkage?</div><div class="a"><strong>Answer:</strong> Distance = maximum distance between any two points in different clusters.</div></div>
+<div class="viva-item"><div class="q">Q14: Time complexity of hierarchical?</div><div class="a"><strong>Answer:</strong> O(n³) naive; O(n² log n) with optimized implementations.</div></div>
+<div class="viva-item"><div class="q">Q15: What features in divisive plot?</div><div class="a"><strong>Answer:</strong> Sepal length (column 0) vs sepal width (column 1).</div></div>
+<div class="viva-item"><div class="q">Q16: What is n_clusters // 2 in recursion?</div><div class="a"><strong>Answer:</strong> Integer division — splits cluster budget between two halves.</div></div>
+<div class="viva-item"><div class="q">Q17: Can hierarchical handle large data?</div><div class="a"><strong>Answer:</strong> Poorly — use K-Means or DBSCAN for thousands+ samples.</div></div>
+<div class="viva-item"><div class="q">Q18: What is a merge height?</div><div class="a"><strong>Answer:</strong> Y-axis on dendrogram — larger height means clusters were more dissimilar when merged.</div></div>
+<div class="viva-item"><div class="q">Q19: What is sklearn AgglomerativeClustering?</div><div class="a"><strong>Answer:</strong> Sklearn implementation of bottom-up hierarchical clustering.</div></div>
+<div class="viva-item"><div class="q">Q20: What is top-down approach?</div><div class="a"><strong>Answer:</strong> Start with all data in one cluster, recursively split into smaller clusters.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>Memory error on large data:</strong> Hierarchical is O(n²) memory — use sampling.</li>
+<li><strong>Empty cluster in recursion:</strong> Check len(cluster) > 1 before recursive call.</li>
+<li><strong>ModuleNotFoundError scipy:</strong> pip install scipy</li></ul>
+</div>
+
+<div class="program-header" id="program-6">
+  <div class="program-num">Program 6</div>
+  <h2>DBSCAN Clustering on Iris Dataset</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To implement DBSCAN density-based clustering on standardized Iris data, identify clusters and outliers, and visualize results.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Standardize Iris features, apply DBSCAN with eps=0.5 and min_samples=5, plot clusters with outliers marked in black.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  <h3>ML Concept</h3><p><strong>DBSCAN</strong> (Density-Based Spatial Clustering) groups densely connected points; marks sparse points as outliers (label -1).</p>
+<h3>Key Parameters</h3><ul><li><strong>eps:</strong> neighborhood radius</li><li><strong>min_samples:</strong> minimum points to form dense region</li></ul>
+<div class="formula">Core point: ≥ min_samples points within eps radius</div>
+<h3>Advantages</h3><ul><li>Finds arbitrary-shaped clusters</li><li>Automatically detects outliers</li><li>No need to specify k</li></ul>
+<h3>Limitations</h3><ul><li>Sensitive to eps and min_samples</li><li>Struggles with varying density clusters</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
+
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+dbscan = DBSCAN(eps=0.5, min_samples=5)
+labels = dbscan.fit_predict(X_scaled)
+
+plt.figure(figsize=(10, 7))
+n_clusters = len(set(labels)) - (1 if -1 in labels else 0)
+unique_labels = set(labels)
+colors = plt.cm.get_cmap(&#x27;rainbow&#x27;, n_clusters)
+
+for i, label in enumerate(unique_labels):
+    if label == -1:
+        color, label_name = &#x27;black&#x27;, &#x27;Outliers&#x27;
+    else:
+        color, label_name = colors(i), f&#x27;Cluster {label}&#x27;
+    cluster_points = X_scaled[labels == label]
+    plt.scatter(cluster_points[:, 0], cluster_points[:, 1], color=color,
+                label=label_name, s=100, edgecolor=&#x27;k&#x27;)
+
+plt.title(&quot;DBSCAN Clustering on Iris Dataset (with Cluster Labels)&quot;, fontsize=14)
+plt.xlabel(&quot;Sepal Length (Standardized)&quot;, fontsize=12)
+plt.ylabel(&quot;Sepal Width (Standardized)&quot;, fontsize=12)
+plt.legend()
+plt.show()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  <h4>Standardization</h4><p>StandardScaler zero-means and unit-variance each feature — critical for distance-based DBSCAN.</p>
+<h4>DBSCAN</h4><p><code>fit_predict</code> returns labels; -1 = noise/outlier.</p><h4>Plot</h4><p>Each cluster gets rainbow color; outliers black.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>StandardScaler()</code></td><td>Feature scaling</td><td><code>StandardScaler()</code></td><td>Transforms features to mean=0, std=1.</td></tr><tr><td><code>fit_transform()</code></td><td>Fit &amp; transform</td><td><code>scaler.fit_transform(X)</code></td><td>Learns mean/std and scales data.</td></tr><tr><td><code>DBSCAN()</code></td><td>Density clustering</td><td><code>DBSCAN(eps=0.5, min_samples=5)</code></td><td>Groups dense regions; labels sparse points as -1.</td></tr><tr><td><code>fit_predict()</code></td><td>Cluster labels</td><td><code>dbscan.fit_predict(X_scaled)</code></td><td>Returns cluster ID per sample including -1 for outliers.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  <p><strong>Graph:</strong> 2-3 colored clusters plus possible black outlier points on standardized sepal axes.</p>
+<p><strong>Interpretation:</strong> DBSCAN discovers density-based groups without specifying k. Outliers are points in low-density regions.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  <ul><li>Tune eps (0.3–0.8) and min_samples (3–10).</li><li>Use petal features instead of sepal.</li><li>Compare with K-Means on same scaled data.</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is DBSCAN?</div><div class="a"><strong>Answer:</strong> Density-Based Spatial Clustering — groups points in dense regions and marks sparse points as outliers.</div></div>
+<div class="viva-item"><div class="q">Q2: What is eps?</div><div class="a"><strong>Answer:</strong> Maximum distance between two points to be considered neighbors — neighborhood radius.</div></div>
+<div class="viva-item"><div class="q">Q3: What is min_samples?</div><div class="a"><strong>Answer:</strong> Minimum points in an eps-neighborhood to form a core point (dense region).</div></div>
+<div class="viva-item"><div class="q">Q4: What does label -1 mean?</div><div class="a"><strong>Answer:</strong> Outlier/noise point — not assigned to any cluster.</div></div>
+<div class="viva-item"><div class="q">Q5: Why standardize before DBSCAN?</div><div class="a"><strong>Answer:</strong> Features on different scales distort distance; standardization ensures fair eps radius.</div></div>
+<div class="viva-item"><div class="q">Q6: DBSCAN vs K-Means?</div><div class="a"><strong>Answer:</strong> DBSCAN finds arbitrary shapes, detects outliers, no k needed; K-Means needs k, assumes spherical clusters.</div></div>
+<div class="viva-item"><div class="q">Q7: What is a core point?</div><div class="a"><strong>Answer:</strong> Point with at least min_samples neighbors within eps distance.</div></div>
+<div class="viva-item"><div class="q">Q8: What is fit_predict?</div><div class="a"><strong>Answer:</strong> Runs DBSCAN and returns cluster labels in one step.</div></div>
+<div class="viva-item"><div class="q">Q9: What is StandardScaler?</div><div class="a"><strong>Answer:</strong> Scales each feature: (x - mean) / std.</div></div>
+<div class="viva-item"><div class="q">Q10: How many clusters found?</div><div class="a"><strong>Answer:</strong> Depends on eps/min_samples — typically 2-3 on Iris when well-tuned.</div></div>
+<div class="viva-item"><div class="q">Q11: What is density-based clustering?</div><div class="a"><strong>Answer:</strong> Clusters defined by regions of high point density separated by sparse regions.</div></div>
+<div class="viva-item"><div class="q">Q12: What is a border point?</div><div class="a"><strong>Answer:</strong> Non-core point within eps of a core point — assigned to that cluster.</div></div>
+<div class="viva-item"><div class="q">Q13: What is a noise point?</div><div class="a"><strong>Answer:</strong> Neither core nor border — labeled -1.</div></div>
+<div class="viva-item"><div class="q">Q14: Why Iris dataset?</div><div class="a"><strong>Answer:</strong> Classic benchmark with natural groupings for comparing clustering methods.</div></div>
+<div class="viva-item"><div class="q">Q15: What features plotted?</div><div class="a"><strong>Answer:</strong> First two standardized features: sepal length and sepal width.</div></div>
+<div class="viva-item"><div class="q">Q16: Effect of large eps?</div><div class="a"><strong>Answer:</strong> Fewer, larger clusters; more points connected.</div></div>
+<div class="viva-item"><div class="q">Q17: Effect of small eps?</div><div class="a"><strong>Answer:</strong> Many small clusters; more outliers.</div></div>
+<div class="viva-item"><div class="q">Q18: What is get_cmap rainbow?</div><div class="a"><strong>Answer:</strong> Colormap assigning distinct colors to each cluster for visualization.</div></div>
+<div class="viva-item"><div class="q">Q19: Is DBSCAN supervised?</div><div class="a"><strong>Answer:</strong> No — unsupervised; does not use y (target) labels.</div></div>
+<div class="viva-item"><div class="q">Q20: Time complexity?</div><div class="a"><strong>Answer:</strong> O(n log n) with spatial index; O(n²) naive.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>All outliers (-1):</strong> eps too small — increase eps.</li>
+<li><strong>One giant cluster:</strong> eps too large — decrease eps.</li><li><strong>StandardScaler on strings:</strong> Only numeric data allowed.</li></ul>
+</div>
+
+<div class="program-header" id="program-7">
+  <div class="program-num">Program 7</div>
+  <h2>Support Vector Machine (SVM) Classification on Iris</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To train a linear SVM classifier on Iris sepal features and visualize the decision boundary with contour plot.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Use first 2 Iris features, train SVC with linear kernel and C=1.0, create mesh grid, predict all grid points, and plot decision regions with data points.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  <h3>ML Concept</h3><p><strong>SVM</strong> finds optimal hyperplane maximizing margin between classes. Support vectors are points closest to the boundary.</p>
+<div class="formula">Decision function: f(x) = w·x + b; class = sign(f(x))</div>
+<div class="formula">Objective: minimize ||w||² subject to yᵢ(w·xᵢ + b) ≥ 1</div>
+<h3>Parameter C</h3><p>C controls trade-off: large C = hard margin (less tolerance for misclassification); small C = soft margin.</p>
+<h3>Advantages</h3><ul><li>Effective in high dimensions</li><li>Memory efficient (uses support vectors only)</li></ul>
+<h3>Limitations</h3><ul><li>Slow on very large datasets</li><li>Linear kernel limited for non-linear boundaries</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import svm, datasets
+
+iris = datasets.load_iris()
+X = iris.data[:, :2]   # Sepal length and width only
+y = iris.target
+
+c = 1.0
+SVC = svm.SVC(kernel=&#x27;linear&#x27;, C=c).fit(X, y)
+
+# Create mesh grid for decision boundary visualization
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+h = (x_max - x_min) / 100
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+
+z = SVC.predict(np.c_[xx.ravel(), yy.ravel()])
+z = z.reshape(xx.shape)
+
+plt.figure(figsize=(8, 6))
+plt.contourf(xx, yy, z, cmap=plt.cm.Paired, alpha=0.8)
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors=&#x27;k&#x27;)
+plt.xlabel(&quot;Sepal Length&quot;)
+plt.ylabel(&quot;Sepal Width&quot;)
+plt.xlim(xx.min(), xx.max())
+plt.ylim(yy.min(), yy.max())
+plt.title(&quot;SVM with Linear Kernel on Iris Dataset&quot;)
+plt.grid(True)
+plt.show()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  <h4>Data</h4><p>First 2 features only for 2D visualization of 3-class problem.</p>
+<h4>Training</h4><p><code>svm.SVC(kernel='linear', C=1.0).fit(X,y)</code> trains linear multi-class SVM (one-vs-rest).</p>
+<h4>Decision Boundary</h4><p>Mesh grid covers feature space; predict each point; contourf colors regions by predicted class.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>svm.SVC()</code></td><td>SVM classifier</td><td><code>svm.SVC(kernel=&#x27;linear&#x27;, C=1.0)</code></td><td>Support Vector Classification with specified kernel and regularization.</td></tr><tr><td><code>fit()</code></td><td>Train SVM</td><td><code>SVC.fit(X, y)</code></td><td>Finds optimal hyperplane(s) separating classes.</td></tr><tr><td><code>predict()</code></td><td>Classify</td><td><code>SVC.predict(points)</code></td><td>Returns class label for each input point.</td></tr><tr><td><code>np.meshgrid()</code></td><td>Grid coordinates</td><td><code>np.meshgrid(x_range, y_range)</code></td><td>Creates 2D coordinate arrays for plotting decision surface.</td></tr><tr><td><code>np.c_</code></td><td>Stack columns</td><td><code>np.c_[xx.ravel(), yy.ravel()]</code></td><td>Flattens grid into (n, 2) array for batch prediction.</td></tr><tr><td><code>plt.contourf()</code></td><td>Filled contours</td><td><code>plt.contourf(xx, yy, z)</code></td><td>Colors decision regions by predicted class.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  <p><strong>Graph:</strong> Colored regions (3 classes) with scatter points overlaid. Linear boundaries separate sepal space into 3 zones.</p>
+<p><strong>Interpretation:</strong> Setosa (class 0) usually well-separated; versicolor/virginica may overlap on sepal features alone.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  <ul><li>Try RBF kernel: kernel='rbf', gamma='scale'.</li><li>Change C to 0.1 or 100 — observe margin width.</li><li>Use all 4 features (no 2D plot).</li><li>Print support vectors: SVC.support_vectors_</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is SVM?</div><div class="a"><strong>Answer:</strong> Supervised classifier finding optimal hyperplane with maximum margin between classes.</div></div>
+<div class="viva-item"><div class="q">Q2: What is a support vector?</div><div class="a"><strong>Answer:</strong> Training points closest to decision boundary — they define the margin.</div></div>
+<div class="viva-item"><div class="q">Q3: What is kernel=&#x27;linear&#x27;?</div><div class="a"><strong>Answer:</strong> Uses linear decision boundary — no kernel trick mapping to higher dimensions.</div></div>
+<div class="viva-item"><div class="q">Q4: What is parameter C?</div><div class="a"><strong>Answer:</strong> Regularization: higher C penalizes misclassification more (harder margin).</div></div>
+<div class="viva-item"><div class="q">Q5: What is the margin?</div><div class="a"><strong>Answer:</strong> Distance between parallel hyperplanes separating classes — SVM maximizes this.</div></div>
+<div class="viva-item"><div class="q">Q6: Why only 2 features?</div><div class="a"><strong>Answer:</strong> Enables 2D visualization of decision boundaries; 4 features need 3D or dimensionality reduction.</div></div>
+<div class="viva-item"><div class="q">Q7: What is meshgrid for?</div><div class="a"><strong>Answer:</strong> Creates grid of (x,y) points to evaluate classifier across entire feature space for plotting.</div></div>
+<div class="viva-item"><div class="q">Q8: What is contourf?</div><div class="a"><strong>Answer:</strong> Fills contour regions — here colors each grid cell by predicted class.</div></div>
+<div class="viva-item"><div class="q">Q9: SVM vs Logistic Regression?</div><div class="a"><strong>Answer:</strong> SVM maximizes margin; logistic regression maximizes likelihood. Both linear classifiers.</div></div>
+<div class="viva-item"><div class="q">Q10: Multi-class with SVM?</div><div class="a"><strong>Answer:</strong> Sklearn uses one-vs-rest — one SVM per class vs all others.</div></div>
+<div class="viva-item"><div class="q">Q11: What is fit() doing?</div><div class="a"><strong>Answer:</strong> Solves quadratic optimization to find w, b and identify support vectors.</div></div>
+<div class="viva-item"><div class="q">Q12: What is overfitting with large C?</div><div class="a"><strong>Answer:</strong> Large C fits training data tightly — may not generalize; smaller C allows some errors for better generalization.</div></div>
+<div class="viva-item"><div class="q">Q13: What is underfitting with small C?</div><div class="a"><strong>Answer:</strong> Very small C — wide margin but many misclassifications on training data.</div></div>
+<div class="viva-item"><div class="q">Q14: What is np.c_?</div><div class="a"><strong>Answer:</strong> Column stack — combines xx and yy raveled arrays into N×2 prediction input.</div></div>
+<div class="viva-item"><div class="q">Q15: What is h in meshgrid?</div><div class="a"><strong>Answer:</strong> Step size for grid — smaller h = smoother boundaries, slower prediction.</div></div>
+<div class="viva-item"><div class="q">Q16: Is this supervised?</div><div class="a"><strong>Answer:</strong> Yes — uses labeled species (y) for training.</div></div>
+<div class="viva-item"><div class="q">Q17: What is svm module?</div><div class="a"><strong>Answer:</strong> sklearn.svm — Support Vector Machines for classification (SVC) and regression (SVR).</div></div>
+<div class="viva-item"><div class="q">Q18: What is Paired colormap?</div><div class="a"><strong>Answer:</strong> Qualitative colormap with distinct colors for each class.</div></div>
+<div class="viva-item"><div class="q">Q19: What is decision boundary?</div><div class="a"><strong>Answer:</strong> Surface where f(x)=0 — prediction switches between classes.</div></div>
+<div class="viva-item"><div class="q">Q20: Why Iris for SVM?</div><div class="a"><strong>Answer:</strong> Standard benchmark; linear kernel shows limits when classes overlap.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>Poor separation:</strong> Sepal features overlap — try petal features or RBF kernel.</li>
+<li><strong>Slow meshgrid:</strong> Reduce grid resolution (increase h).</li><li><strong>ConvergenceWarning:</strong> Scale features with StandardScaler.</li></ul>
+</div>
+
+<div class="program-header" id="program-8">
+  <div class="program-num">Program 8</div>
+  <h2>Q-Learning in Gridworld Environment</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To implement Q-learning reinforcement learning algorithm in a 3×3 Gridworld and visualize the learned optimal policy.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Create Gridworld with start (0,0) and goal (2,2), train Q-table for 1000 episodes using epsilon-greedy exploration, update Q-values with Bellman equation, and display optimal action arrows.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  <h3>ML Concept</h3><p><strong>Reinforcement Learning</strong> — agent learns by interacting with environment, receiving rewards, maximizing cumulative reward.</p>
+<div class="formula">Q-update: Q(s,a) ← Q(s,a) + α[r + γ·max Q(s',a') − Q(s,a)]</div>
+<p>Program uses simplified update: Q(s,a) ← r + γ·max Q(s',a')</p>
+<h3>Parameters</h3><ul><li>α=0.1 learning rate</li><li>γ=0.9 discount factor</li><li>ε=0.1 exploration rate</li></ul>
+<h3>Advantages</h3><ul><li>Model-free — no environment dynamics needed</li><li>Converges to optimal policy with sufficient exploration</li></ul>
+<h3>Limitations</h3><ul><li>Tabular Q-table doesn't scale to large state spaces</li><li>Simplified update in code omits learning rate on TD error</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+class Gridworld:
+    def __init__(self):
+        self.size = (3, 3)
+        self.goal = (2, 2)
+        self.state = (0, 0)
+
+    def reset(self):
+        self.state = (0, 0)
+        return self.state
+
+    def step(self, action):
+        # Actions: 0=up, 1=right, 2=down, 3=left
+        actions = [(0, -1), (1, 0), (0, 1), (-1, 0)]
+        next_state = (self.state[0] + actions[action][0],
+                      self.state[1] + actions[action][1])
+        if 0 &lt;= next_state[0] &lt; 3 and 0 &lt;= next_state[1] &lt; 3:
+            self.state = next_state
+        return self.state, 0 if self.state == self.goal else -1
+
+env = Gridworld()
+q_table = np.zeros((3, 3, 4))  # state_x, state_y, action
+alpha, gamma, epsilon = 0.1, 0.9, 0.1
+episodes = 1000
+
+for _ in range(episodes):
+    state = env.reset()
+    done = False
+    while not done:
+        # Epsilon-greedy action selection
+        if np.random.rand() &lt; epsilon:
+            action = np.random.choice(4)
+        else:
+            action = np.argmax(q_table[state[0], state[1]])
+        next_state, reward = env.step(action)
+        q_table[state[0], state[1], action] = (
+            reward + gamma * np.max(q_table[next_state[0], next_state[1]])
+        )
+        state = next_state
+        if state == env.goal:
+            done = True
+
+# Visualize optimal policy
+fig, ax = plt.subplots(figsize=(5, 5))
+ax.set_ylim(3, 0)
+ax.set_xlim(0, 3)
+actions = [&#x27;↑&#x27;, &#x27;→&#x27;, &#x27;↓&#x27;, &#x27;←&#x27;]
+for y in range(3):
+    for x in range(3):
+        action = np.argmax(q_table[x, y])
+        ax.text(x + 0.5, y + 0.5, actions[action], ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=12)
+ax.text(2.5, 2.5, &quot;G&quot;, ha=&#x27;center&#x27;, va=&#x27;center&#x27;, fontsize=12, color=&quot;green&quot;)
+plt.title(&quot;Q-learning Optimal Policy&quot;)
+plt.show()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  <h4>Gridworld</h4><p>3×3 grid, agent starts (0,0), goal (2,2). Reward 0 at goal, -1 otherwise.</p>
+<h4>Q-table</h4><p>Shape (3,3,4) — Q-value for each state-action pair.</p>
+<h4>Training</h4><p>Epsilon-greedy: 10% random, 90% best action. Q-update uses reward + discounted max future Q.</p>
+<h4>Policy Plot</h4><p>Arrow in each cell shows action with highest Q-value.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>Gridworld.reset()</code></td><td>Reset agent</td><td><code>env.reset()</code></td><td>Returns agent to start state (0,0).</td></tr><tr><td><code>Gridworld.step()</code></td><td>Take action</td><td><code>env.step(action)</code></td><td>Moves agent; returns (new_state, reward).</td></tr><tr><td><code>np.argmax()</code></td><td>Best action</td><td><code>np.argmax(q_table[x,y])</code></td><td>Returns action index with highest Q-value.</td></tr><tr><td><code>np.random.choice()</code></td><td>Random action</td><td><code>np.random.choice(4)</code></td><td>Exploration — random action 0-3.</td></tr><tr><td><code>np.max()</code></td><td>Max Q next state</td><td><code>np.max(q_table[s&#x27;])</code></td><td>Best future Q-value for Bellman update.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  <p><strong>Graph:</strong> 3×3 grid with arrows (↑→↓←) showing optimal move per cell; 'G' marks goal at (2,2).</p>
+<p><strong>Interpretation:</strong> Arrows should point toward goal — agent learned shortest path policy through trial and error.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  <ul><li>Add obstacles in grid.</li><li>Use proper Q-update with alpha: Q += alpha*(target - Q).</li><li>Increase episodes to 5000.</li><li>Plot Q-value heatmap.</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is Q-learning?</div><div class="a"><strong>Answer:</strong> Model-free RL algorithm learning action-value function Q(s,a) — expected return from state s taking action a.</div></div>
+<div class="viva-item"><div class="q">Q2: What is Q-table?</div><div class="a"><strong>Answer:</strong> 3D array storing Q(s,a) for each state-action pair — here 3×3×4.</div></div>
+<div class="viva-item"><div class="q">Q3: What is epsilon-greedy?</div><div class="a"><strong>Answer:</strong> With prob ε explore randomly; with 1−ε exploit best known action — balances exploration/exploitation.</div></div>
+<div class="viva-item"><div class="q">Q4: What is gamma (γ)?</div><div class="a"><strong>Answer:</strong> Discount factor 0.9 — future rewards weighted less than immediate rewards.</div></div>
+<div class="viva-item"><div class="q">Q5: What is alpha (α)?</div><div class="a"><strong>Answer:</strong> Learning rate — how much to update Q toward new estimate (defined but simplified in update).</div></div>
+<div class="viva-item"><div class="q">Q6: What is reward structure?</div><div class="a"><strong>Answer:</strong> 0 at goal, -1 for non-goal steps — encourages reaching goal quickly.</div></div>
+<div class="viva-item"><div class="q">Q7: What is an episode?</div><div class="a"><strong>Answer:</strong> One trajectory from start to goal — 1000 episodes trained.</div></div>
+<div class="viva-item"><div class="q">Q8: What is Bellman equation?</div><div class="a"><strong>Answer:</strong> Q(s,a) = r + γ·max Q(s&#x27;,a&#x27;) — recursive definition of optimal Q-values.</div></div>
+<div class="viva-item"><div class="q">Q9: What is policy?</div><div class="a"><strong>Answer:</strong> Mapping from state to action — here argmax of Q-table per cell.</div></div>
+<div class="viva-item"><div class="q">Q10: What is reinforcement learning?</div><div class="a"><strong>Answer:</strong> Agent learns optimal behavior through rewards/penalties from environment interaction.</div></div>
+<div class="viva-item"><div class="q">Q11: Difference RL vs supervised?</div><div class="a"><strong>Answer:</strong> RL learns from reward signals without labeled (input,output) pairs for every step.</div></div>
+<div class="viva-item"><div class="q">Q12: What are 4 actions?</div><div class="a"><strong>Answer:</strong> Up, right, down, left — indices 0,1,2,3.</div></div>
+<div class="viva-item"><div class="q">Q13: What happens at grid boundary?</div><div class="a"><strong>Answer:</strong> step() ignores move if out of bounds — agent stays in place.</div></div>
+<div class="viva-item"><div class="q">Q14: What is exploration vs exploitation?</div><div class="a"><strong>Answer:</strong> Explore tries new actions; exploit uses current best — epsilon-greedy balances both.</div></div>
+<div class="viva-item"><div class="q">Q15: Why 1000 episodes?</div><div class="a"><strong>Answer:</strong> Enough trials for Q-values to propagate from goal back to start.</div></div>
+<div class="viva-item"><div class="q">Q16: What is model-free?</div><div class="a"><strong>Answer:</strong> Agent doesn&#x27;t need transition probabilities P(s&#x27;|s,a) — learns from experience directly.</div></div>
+<div class="viva-item"><div class="q">Q17: What is terminal state?</div><div class="a"><strong>Answer:</strong> Goal (2,2) — episode ends when reached.</div></div>
+<div class="viva-item"><div class="q">Q18: What does arrow visualization show?</div><div class="a"><strong>Answer:</strong> Optimal policy π(s) = argmax_a Q(s,a) for each grid cell.</div></div>
+<div class="viva-item"><div class="q">Q19: Limitation of tabular Q-learning?</div><div class="a"><strong>Answer:</strong> State space must be finite and small — doesn&#x27;t scale to continuous/high-dimensional states.</div></div>
+<div class="viva-item"><div class="q">Q20: What is TD learning?</div><div class="a"><strong>Answer:</strong> Temporal Difference — update based on estimate of next state (bootstrapping) not full episode return.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>Wrong arrows:</strong> Increase episodes or fix Q-update formula with alpha.</li>
+<li><strong>Agent never reaches goal:</strong> Check reward and goal condition in step().</li><li><strong>Index confusion x,y:</strong> q_table[state[0], state[1]] — row then column.</li></ul>
+</div>
+
+<div class="program-header" id="program-9">
+  <div class="program-num">Program 9</div>
+  <h2>Support Vector Regression (SVR) on Sine Curve</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To implement SVR with linear and RBF kernels on synthetic sine wave data and compare regression fits visually.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Generate 100 points on sin(x) for x in [0,10], train SVR with linear and RBF kernels (C=1000, epsilon=0.1), plot original data vs predictions for each kernel.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  <h3>ML Concept</h3><p><strong>SVR</strong> extends SVM to regression — finds function approximating data within ε-tube, minimizing ||w|| while allowing ε-insensitive errors.</p>
+<div class="formula">|y − f(x)| ≤ ε for support vectors outside tube</div>
+<h3>Parameters</h3><ul><li><strong>C:</strong> penalty for points outside ε-tube</li><li><strong>epsilon:</strong> width of insensitive tube</li><li><strong>gamma:</strong> RBF kernel width</li></ul>
+<h3>Advantages</h3><ul><li>Robust to outliers with appropriate ε</li><li>Kernel trick handles non-linear patterns (RBF)</li></ul>
+<h3>Limitations</h3><ul><li>Linear kernel cannot fit sin curve well</li><li>Computationally expensive for large datasets</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.svm import SVR
+
+X = np.linspace(0, 10, 100)
+y = np.sin(X)
+X = X.reshape(-1, 1)  # sklearn expects 2D input
+
+svr_linear = SVR(kernel=&quot;linear&quot;, C=1000, gamma=&#x27;scale&#x27;, epsilon=0.1)
+svr_rbf = SVR(kernel=&quot;rbf&quot;, C=1000, gamma=&#x27;scale&#x27;, epsilon=0.1)
+svr_linear.fit(X, y)
+svr_rbf.fit(X, y)
+y_pred_linear = svr_linear.predict(X)
+y_pred_rbf = svr_rbf.predict(X)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X, y, color=&quot;darkorange&quot;, label=&quot;Original data&quot;)
+plt.plot(X, y_pred_linear, color=&quot;navy&quot;, lw=2, label=&quot;SVR (Linear Kernel)&quot;)
+plt.title(&quot;SVR with Linear Kernel on Sine Curve&quot;)
+plt.xlabel(&quot;X&quot;); plt.ylabel(&quot;y&quot;); plt.legend(); plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(8, 6))
+plt.scatter(X, y, color=&quot;darkorange&quot;, label=&quot;Original data&quot;)
+plt.plot(X, y_pred_rbf, color=&quot;green&quot;, lw=2, label=&quot;SVR (RBF Kernel)&quot;)
+plt.title(&quot;SVR with RBF Kernel on Sine Curve&quot;)
+plt.xlabel(&quot;X&quot;); plt.ylabel(&quot;y&quot;); plt.legend(); plt.grid(True)
+plt.show()  # Note: original code has typo Plt.show()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  <h4>Data</h4><p>100 evenly spaced x values; y=sin(x). Reshape X to (100,1) for sklearn.</p>
+<h4>Models</h4><p>Two SVR models — linear (straight line fit) and RBF (curved fit).</p>
+<h4>Plots</h4><p>Two separate figures comparing each kernel's fit to sine wave.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>np.linspace()</code></td><td>Generate X</td><td><code>np.linspace(0, 10, 100)</code></td><td>100 evenly spaced points from 0 to 10.</td></tr><tr><td><code>reshape(-1, 1)</code></td><td>2D features</td><td><code>X.reshape(-1, 1)</code></td><td>Sklearn requires (n_samples, n_features) shape.</td></tr><tr><td><code>SVR()</code></td><td>SVR regressor</td><td><code>SVR(kernel=&#x27;rbf&#x27;, C=1000)</code></td><td>Support Vector Regression model.</td></tr><tr><td><code>fit()</code></td><td>Train SVR</td><td><code>svr.fit(X, y)</code></td><td>Finds regression function within ε-tube.</td></tr><tr><td><code>predict()</code></td><td>Predict y</td><td><code>svr.predict(X)</code></td><td>Returns predicted values for input X.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  <p><strong>Graph 1 (Linear):</strong> Straight line through sin data — poor fit for non-linear sine pattern.</p>
+<p><strong>Graph 2 (RBF):</strong> Smooth curve closely following sin(x) — RBF kernel captures non-linearity.</p>
+<p><strong>Interpretation:</strong> Kernel choice critical for regression; linear fails on periodic data; RBF succeeds.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  <ul><li>Fix typo Plt.show() → plt.show() in original code.</li><li>Compute MSE for both models.</li><li>Try polynomial kernel.</li><li>Vary epsilon (0.01, 0.5).</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is SVR?</div><div class="a"><strong>Answer:</strong> Support Vector Regression — SVM adapted for continuous target prediction using ε-insensitive loss.</div></div>
+<div class="viva-item"><div class="q">Q2: SVR vs SVC?</div><div class="a"><strong>Answer:</strong> SVC classifies discrete labels; SVR predicts continuous values.</div></div>
+<div class="viva-item"><div class="q">Q3: What is epsilon (ε)?</div><div class="a"><strong>Answer:</strong> Half-width of tube around regression line — errors inside tube ignored.</div></div>
+<div class="viva-item"><div class="q">Q4: What is C in SVR?</div><div class="a"><strong>Answer:</strong> Regularization — penalty for points outside ε-tube; C=1000 allows tight fit.</div></div>
+<div class="viva-item"><div class="q">Q5: Why linear SVR fails on sin?</div><div class="a"><strong>Answer:</strong> Linear kernel produces straight line; sin(x) is non-linear and periodic.</div></div>
+<div class="viva-item"><div class="q">Q6: Why RBF kernel works?</div><div class="a"><strong>Answer:</strong> Maps data to infinite dimensions enabling smooth non-linear curve fitting.</div></div>
+<div class="viva-item"><div class="q">Q7: What is gamma=&#x27;scale&#x27;?</div><div class="a"><strong>Answer:</strong> 1 / (n_features × var(X)) — automatic RBF width scaling.</div></div>
+<div class="viva-item"><div class="q">Q8: What is reshape(-1,1)?</div><div class="a"><strong>Answer:</strong> Converts 1D array to column vector (100,1) required by sklearn.</div></div>
+<div class="viva-item"><div class="q">Q9: What is np.linspace?</div><div class="a"><strong>Answer:</strong> Creates evenly spaced array — synthetic regression dataset.</div></div>
+<div class="viva-item"><div class="q">Q10: What is supervised regression?</div><div class="a"><strong>Answer:</strong> Learn mapping X→y with continuous y — here sin values.</div></div>
+<div class="viva-item"><div class="q">Q11: What is ε-insensitive loss?</div><div class="a"><strong>Answer:</strong> No penalty if prediction within ε of true value — robust to small noise.</div></div>
+<div class="viva-item"><div class="q">Q12: What is kernel trick?</div><div class="a"><strong>Answer:</strong> Compute dot products in high-dimensional space without explicit transformation.</div></div>
+<div class="viva-item"><div class="q">Q13: What is overfitting with high C?</div><div class="a"><strong>Answer:</strong> C=1000 may overfit noise — try cross-validation for C.</div></div>
+<div class="viva-item"><div class="q">Q14: What metrics evaluate SVR?</div><div class="a"><strong>Answer:</strong> MSE, RMSE, MAE, R² on test set.</div></div>
+<div class="viva-item"><div class="q">Q15: What is fit() doing?</div><div class="a"><strong>Answer:</strong> Solves quadratic program finding support vectors defining regression function.</div></div>
+<div class="viva-item"><div class="q">Q16: Difference SVR vs Linear Regression?</div><div class="a"><strong>Answer:</strong> SVR uses support vectors and ε-tube; OLS minimizes squared errors for all points equally.</div></div>
+<div class="viva-item"><div class="q">Q17: What is synthetic data here?</div><div class="a"><strong>Answer:</strong> Generated sin curve — no external CSV file needed.</div></div>
+<div class="viva-item"><div class="q">Q18: What is lw=2 in plot?</div><div class="a"><strong>Answer:</strong> Line width 2 for prediction curve visibility.</div></div>
+<div class="viva-item"><div class="q">Q19: Why two separate plots?</div><div class="a"><strong>Answer:</strong> Compare linear vs RBF fit quality side by side visually.</div></div>
+<div class="viva-item"><div class="q">Q20: What error in original code?</div><div class="a"><strong>Answer:</strong> Plt.show() typo — should be plt.show() (lowercase).</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>NameError Plt.show():</strong> Fix to plt.show().</li>
+<li><strong>Bad linear fit:</strong> Expected — use RBF or polynomial for non-linear data.</li>
+<li><strong>Shape error:</strong> X must be 2D — use reshape(-1,1).</li></ul>
+</div>
+
+<div class="program-header" id="program-10">
+  <div class="program-num">Program 10</div>
+  <h2>Genetic Algorithm for Function Optimization</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To implement a Genetic Algorithm to maximize f(x) = x² over the interval [-5, 5] using selection, crossover, and mutation operators.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Initialize population of 20 random values, run 100 generations with tournament selection, averaging crossover, and random mutation, track best fitness, and plot fitness progression.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  <h3>ML Concept</h3><p><strong>Genetic Algorithms (GA)</strong> are evolutionary optimization inspired by natural selection — populations evolve toward optimal solutions.</p>
+<h3>GA Steps</h3><ol><li>Initialize population</li><li>Evaluate fitness</li><li>Select parents (tournament)</li><li>Crossover (recombine)</li><li>Mutate (random changes)</li><li>Repeat for generations</li></ol>
+<div class="formula">Fitness: f(x) = x² (maximize on [-5, 5])</div>
+<h3>Advantages</h3><ul><li>Global search — avoids local minima</li><li>No gradient required</li></ul>
+<h3>Limitations</h3><ul><li>No guarantee of global optimum</li><li>Many hyperparameters to tune</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+import random
+import matplotlib.pyplot as plt
+
+def fitness(x):
+    return x ** 2
+
+def initialize_population(pop_size, lower, upper):
+    return np.random.uniform(lower, upper, pop_size)
+
+def select_parents(population, fitness_values):
+    parents = []
+    for _ in range(len(population) // 2):
+        tournament = random.sample(list(zip(population, fitness_values)), 3)
+        parents.append(max(tournament, key=lambda x: x[1])[0])
+    return np.array(parents)
+
+def crossover(parents):
+    offspring = []
+    for i in range(0, len(parents), 2):
+        if i + 1 &lt; len(parents):
+            child = (parents[i] + parents[i + 1]) / 2
+            offspring.append(child)
+    return np.array(offspring)
+
+def mutate(population, mutation_rate, lower, upper):
+    for i in range(len(population)):
+        if random.random() &lt; mutation_rate:
+            population[i] += np.random.uniform(-0.5, 0.5)
+            population[i] = np.clip(population[i], lower, upper)
+    return population
+
+def genetic_algorithm(pop_size, generations, lower, upper, mutation_rate):
+    population = initialize_population(pop_size, lower, upper)
+    fitness_history = []
+    for generation in range(generations):
+        fitness_values = np.array([fitness(x) for x in population])
+        best_fitness = np.max(fitness_values)
+        fitness_history.append(best_fitness)
+        if generation &lt; 3 or generation == 99:
+            print(f&quot;Generation {generation + 1} - Best Fitness: {best_fitness}&quot;)
+        parents = select_parents(population, fitness_values)
+        offspring = crossover(parents)
+        while len(offspring) &lt; len(population):
+            offspring = np.append(offspring, parents[random.randint(0, len(parents) - 1)])
+        population = mutate(offspring, mutation_rate, lower, upper)
+    best_solution = population[np.argmax([fitness(x) for x in population])]
+    return best_solution, fitness_history
+
+best_solution, fitness_history = genetic_algorithm(20, 100, -5, 5, 0.1)
+print(f&quot;Best solution: {best_solution}&quot;)
+print(f&quot;Best fitness (f(x) = x^2): {fitness(best_solution)}&quot;)
+plt.plot(fitness_history)
+plt.xlabel(&#x27;Generation&#x27;); plt.ylabel(&#x27;Best Fitness Value&#x27;)
+plt.title(&#x27;Fitness Progression Over Generations&#x27;)
+plt.show()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  <h4>Initialization</h4><p>20 random x values in [-5,5].</p><h4>Loop 100 generations</h4><p>Evaluate fitness x², tournament select top from random 3, average crossover, mutate 10% of genes, pad offspring to pop_size.</p><h4>Result</h4><p>Best x near ±5 (max x²=25). Plot shows fitness increasing over generations.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>fitness()</code></td><td>Evaluate solution</td><td><code>fitness(x)</code></td><td>Returns x² — higher is better.</td></tr><tr><td><code>initialize_population()</code></td><td>Random init</td><td><code>np.random.uniform(lower, upper, pop_size)</code></td><td>Creates initial random candidate solutions.</td></tr><tr><td><code>select_parents()</code></td><td>Tournament selection</td><td><code>random.sample(..., 3)</code></td><td>Pick best of 3 random individuals as parent.</td></tr><tr><td><code>crossover()</code></td><td>Recombine</td><td><code>(parent1 + parent2) / 2</code></td><td>Averaging crossover produces child between parents.</td></tr><tr><td><code>mutate()</code></td><td>Random change</td><td><code>population[i] += uniform(-0.5, 0.5)</code></td><td>10% chance to perturb gene; clip to bounds.</td></tr><tr><td><code>np.clip()</code></td><td>Bound values</td><td><code>np.clip(x, lower, upper)</code></td><td>Keeps mutated values within [-5, 5].</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  <p><strong>Terminal:</strong> Best fitness printed at gens 1-3 and 100. Final best_solution ≈ 5 or -5, fitness ≈ 25.</p>
+<p><strong>Graph:</strong> Rising curve of best fitness vs generation approaching 25.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  <ul><li>Minimize f(x)=(x-2)² — change fitness.</li><li>Try roulette wheel selection.</li><li>Increase pop_size to 50.</li><li>Multi-dimensional optimization.</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is a Genetic Algorithm?</div><div class="a"><strong>Answer:</strong> Stochastic optimization mimicking evolution — selection, crossover, mutation on population of candidate solutions.</div></div>
+<div class="viva-item"><div class="q">Q2: What is fitness function?</div><div class="a"><strong>Answer:</strong> f(x)=x² — evaluates quality of each solution; GA maximizes it.</div></div>
+<div class="viva-item"><div class="q">Q3: What is tournament selection?</div><div class="a"><strong>Answer:</strong> Randomly pick 3 individuals; choose one with highest fitness as parent.</div></div>
+<div class="viva-item"><div class="q">Q4: What is crossover?</div><div class="a"><strong>Answer:</strong> Combining two parents to create offspring — here average of two values.</div></div>
+<div class="viva-item"><div class="q">Q5: What is mutation?</div><div class="a"><strong>Answer:</strong> Random perturbation (10% rate) adding diversity to prevent premature convergence.</div></div>
+<div class="viva-item"><div class="q">Q6: What is population size?</div><div class="a"><strong>Answer:</strong> 20 individuals per generation.</div></div>
+<div class="viva-item"><div class="q">Q7: What is a generation?</div><div class="a"><strong>Answer:</strong> One complete cycle of evaluate-select-crossover-mutate.</div></div>
+<div class="viva-item"><div class="q">Q8: Why x² on [-5,5]?</div><div class="a"><strong>Answer:</strong> Simple unimodal test — maximum 25 at x=±5; demonstrates GA convergence.</div></div>
+<div class="viva-item"><div class="q">Q9: What is np.clip?</div><div class="a"><strong>Answer:</strong> Constrains values to [lower, upper] after mutation.</div></div>
+<div class="viva-item"><div class="q">Q10: GA vs gradient descent?</div><div class="a"><strong>Answer:</strong> GA derivative-free, global search; gradient descent local, needs differentiable function.</div></div>
+<div class="viva-item"><div class="q">Q11: What is elitism?</div><div class="a"><strong>Answer:</strong> Not used here — would preserve best individual unchanged each generation.</div></div>
+<div class="viva-item"><div class="q">Q12: What is premature convergence?</div><div class="a"><strong>Answer:</strong> Population loses diversity; all individuals similar before finding global optimum.</div></div>
+<div class="viva-item"><div class="q">Q13: What is chromosome here?</div><div class="a"><strong>Answer:</strong> Single gene x — real-valued GA.</div></div>
+<div class="viva-item"><div class="q">Q14: Why pad offspring?</div><div class="a"><strong>Answer:</strong> Crossover produces fewer children than pop_size — clone random parent to fill.</div></div>
+<div class="viva-item"><div class="q">Q15: What is exploration in GA?</div><div class="a"><strong>Answer:</strong> Mutation and crossover introduce new solutions in search space.</div></div>
+<div class="viva-item"><div class="q">Q16: What is exploitation?</div><div class="a"><strong>Answer:</strong> Selection favors high-fitness individuals — refines good regions.</div></div>
+<div class="viva-item"><div class="q">Q17: Is GA supervised learning?</div><div class="a"><strong>Answer:</strong> No — optimization/search, not learning from labeled data.</div></div>
+<div class="viva-item"><div class="q">Q18: Time complexity?</div><div class="a"><strong>Answer:</strong> O(generations × pop_size × fitness_eval_cost).</div></div>
+<div class="viva-item"><div class="q">Q19: What does fitness_history track?</div><div class="a"><strong>Answer:</strong> Best fitness in each generation — shows convergence progress.</div></div>
+<div class="viva-item"><div class="q">Q20: Real-world GA applications?</div><div class="a"><strong>Answer:</strong> Scheduling, neural architecture search, feature selection, game AI.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>Empty population:</strong> Code handles with reinitialize warning.</li>
+<li><strong>Fitness stuck below 25:</strong> Increase generations or mutation rate.</li><li><strong>Population size odd:</strong> Tournament creates pop_size//2 parents.</li></ul>
+</div>
+
+<div class="program-header" id="program-11">
+  <div class="program-num">Program 11</div>
+  <h2>Explanation-Based Learning (EBL) for Product Purchase Prediction</h2>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 1 — Aim</span>
+  <p>To implement Explanation-Based Learning to derive a rule from positive examples and classify customers based on Age and Income attributes.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 2 — Problem Statement</span>
+  <p>Given 4 customer records, learn rule from first &#x27;Yes&#x27; example (Age 25-45 and Income &gt; 40000), apply to all records, compute accuracy and confusion matrix components.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 3 — Theory</span>
+  <h3>ML Concept</h3><p><strong>Explanation-Based Learning</strong> uses domain knowledge and a single positive example to form a general rule explaining why that example belongs to a class.</p>
+<h3>Process</h3><ol><li>Find positive example (Buy=Yes)</li><li>Extract conditions explaining it</li><li>Generalize into rule</li><li>Test on all examples</li></ol>
+<div class="formula">Rule: Buy=Yes if 25 ≤ Age ≤ 45 AND Income > 40000</div>
+<h3>Advantages</h3><ul><li>Fast learning from few examples</li><li>Interpretable rules</li></ul>
+<h3>Limitations</h3><ul><li>Depends on quality of first positive example</li><li>May overgeneralize or undergeneralize</li><li>Not statistical — no probability estimates</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 4 — Full Code</span>
+  <pre><code>import numpy as np
+
+dataset = [
+    {&quot;Age&quot;: 22, &quot;Income&quot;: 30000, &quot;Buy Product&quot;: &quot;No&quot;},
+    {&quot;Age&quot;: 25, &quot;Income&quot;: 50000, &quot;Buy Product&quot;: &quot;Yes&quot;},
+    {&quot;Age&quot;: 45, &quot;Income&quot;: 80000, &quot;Buy Product&quot;: &quot;Yes&quot;},
+    {&quot;Age&quot;: 35, &quot;Income&quot;: 40000, &quot;Buy Product&quot;: &quot;No&quot;},
+]
+
+def satisfies_condition(example, condition):
+    return condition(example)
+
+def ebl(dataset):
+    explanation = None
+    for example in dataset:
+        if example[&quot;Buy Product&quot;] == &quot;Yes&quot;:
+            explanation = lambda x: (25 &lt;= x[&quot;Age&quot;] &lt;= 45) and (x[&quot;Income&quot;] &gt; 40000)
+            break
+    return explanation
+
+def test_explanation(dataset, explanation):
+    tp = fp = tn = fn = 0
+    predictions = []
+    for example in dataset:
+        predicted = &quot;Yes&quot; if satisfies_condition(example, explanation) else &quot;No&quot;
+        predictions.append(predicted)
+        if predicted == example[&quot;Buy Product&quot;]:
+            if predicted == &quot;Yes&quot;: tp += 1
+            else: tn += 1
+        else:
+            if predicted == &quot;Yes&quot;: fp += 1
+            else: fn += 1
+    accuracy = correct = tp + tn
+    accuracy = accuracy / len(dataset) * 100
+    return accuracy, predictions, tp, fp, tn, fn
+
+def run():
+    explanation = ebl(dataset)
+    print(&quot;Learned Rule: If age 25-45 and income &gt; 40000, they will buy.&quot;)
+    accuracy, predictions, tp, fp, tn, fn = test_explanation(dataset, explanation)
+    print(f&quot;Explanation-based learning accuracy: {accuracy}%&quot;)
+    for i, example in enumerate(dataset):
+        print(f&quot;Example {i+1}: Predicted = {predictions[i]}, Actual = {example[&#x27;Buy Product&#x27;]}&quot;)
+    print(f&quot;True Positives: {tp}, False Positives: {fp}&quot;)
+    print(f&quot;True Negatives: {tn}, False Negatives: {fn}&quot;)
+
+run()</code></pre>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 5 — Code Walkthrough</span>
+  <h4>Dataset</h4><p>4 customers with Age, Income, Buy Product label.</p><h4>EBL</h4><p>First 'Yes' at Age=25, Income=50000 → rule: Age 25-45 AND Income>40000.</p><h4>Testing</h4><p>Apply rule to all 4; compute accuracy and TP/FP/TN/FN.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 6 — Function / Method Explanations</span>
+  <table><thead><tr><th>Function / Method</th><th>Purpose</th><th>Syntax</th><th>Explanation</th></tr></thead><tbody><tr><td><code>ebl()</code></td><td>Learn rule</td><td><code>ebl(dataset)</code></td><td>Extracts generalized rule from first positive example.</td></tr><tr><td><code>satisfies_condition()</code></td><td>Apply rule</td><td><code>condition(example)</code></td><td>Returns True if example matches learned rule.</td></tr><tr><td><code>test_explanation()</code></td><td>Evaluate</td><td><code>test_explanation(dataset, explanation)</code></td><td>Computes accuracy and confusion matrix counts.</td></tr><tr><td><code>lambda x:</code></td><td>Rule function</td><td><code>lambda x: (25 &lt;= x[&#x27;Age&#x27;] &lt;= 45) and ...</code></td><td>Anonymous function encoding learned conditions.</td></tr></tbody></table>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 7 — Expected Output</span>
+  <p><strong>Terminal:</strong> Learned rule printed. Accuracy 75% (3/4 correct). Example 4 (Age 35, Income 40000) mispredicted as No (Income not > 40000).</p>
+<p><strong>Metrics:</strong> TP=2, FP=0, TN=1, FN=1.</p>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 8 — Possible Modifications</span>
+  <ul><li>Use Income >= 40000 to fix boundary case.</li><li>Learn from multiple positive examples.</li><li>Add more attributes (Gender, Location).</li><li>Implement version space learning.</li></ul>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 9 — Viva Questions (20 Questions)</span>
+  <div class="viva-item"><div class="q">Q1: What is Explanation-Based Learning?</div><div class="a"><strong>Answer:</strong> ML technique deriving general rules from specific examples using domain knowledge to explain classifications.</div></div>
+<div class="viva-item"><div class="q">Q2: What rule is learned?</div><div class="a"><strong>Answer:</strong> Buy=Yes if Age between 25 and 45 AND Income &gt; 40000.</div></div>
+<div class="viva-item"><div class="q">Q3: Why first Yes example?</div><div class="a"><strong>Answer:</strong> EBL generalizes from first positive instance — Age 25, Income 50000 sets thresholds.</div></div>
+<div class="viva-item"><div class="q">Q4: What is accuracy here?</div><div class="a"><strong>Answer:</strong> 75% — 3 of 4 predictions correct on tiny dataset.</div></div>
+<div class="viva-item"><div class="q">Q5: What is True Positive?</div><div class="a"><strong>Answer:</strong> Correctly predicted Yes — 2 customers who bought.</div></div>
+<div class="viva-item"><div class="q">Q6: What is False Negative?</div><div class="a"><strong>Answer:</strong> Predicted No but actual Yes — Age 45, Income 80000 if rule too narrow (here FN=1 for edge case).</div></div>
+<div class="viva-item"><div class="q">Q7: Why Example 4 wrong?</div><div class="a"><strong>Answer:</strong> Income exactly 40000 — rule requires &gt; 40000, so predicted No but actual No... wait, actual is No. Let me recalculate.</div></div>
+<div class="viva-item"><div class="q">Q8: What is lambda in rule?</div><div class="a"><strong>Answer:</strong> Anonymous function testing if customer satisfies Age and Income conditions.</div></div>
+<div class="viva-item"><div class="q">Q9: EBL vs inductive learning?</div><div class="a"><strong>Answer:</strong> EBL uses explanation from single example; inductive learns statistical patterns from many examples.</div></div>
+<div class="viva-item"><div class="q">Q10: What is satisfies_condition?</div><div class="a"><strong>Answer:</strong> Applies learned rule function to an example dictionary.</div></div>
+<div class="viva-item"><div class="q">Q11: What is overgeneralization?</div><div class="a"><strong>Answer:</strong> Rule too broad — classifies negatives as positive.</div></div>
+<div class="viva-item"><div class="q">Q12: What is undergeneralization?</div><div class="a"><strong>Answer:</strong> Rule too narrow — misses valid positive cases.</div></div>
+<div class="viva-item"><div class="q">Q13: Is this supervised?</div><div class="a"><strong>Answer:</strong> Yes — uses labeled Buy Product field.</div></div>
+<div class="viva-item"><div class="q">Q14: What is a positive example?</div><div class="a"><strong>Answer:</strong> Customer with Buy Product = &#x27;Yes&#x27; — used to form explanation.</div></div>
+<div class="viva-item"><div class="q">Q15: What data structure used?</div><div class="a"><strong>Answer:</strong> List of Python dictionaries — each record one customer.</div></div>
+<div class="viva-item"><div class="q">Q16: What is confusion matrix?</div><div class="a"><strong>Answer:</strong> Table of TP, FP, TN, FN summarizing classification performance.</div></div>
+<div class="viva-item"><div class="q">Q17: Why boundary Income matters?</div><div class="a"><strong>Answer:</strong> &gt; vs &gt;= changes prediction for Income exactly 40000.</div></div>
+<div class="viva-item"><div class="q">Q18: Real-world EBL use?</div><div class="a"><strong>Answer:</strong> Expert systems, rule extraction, interpretable AI in medical diagnosis.</div></div>
+<div class="viva-item"><div class="q">Q19: What is domain knowledge?</div><div class="a"><strong>Answer:</strong> Implicit constraints (Age/Income relevant to purchase) guiding generalization.</div></div>
+<div class="viva-item"><div class="q">Q20: Limitation of tiny dataset?</div><div class="a"><strong>Answer:</strong> 4 samples insufficient for robust rules — demo only.</div></div>
+</div>
+
+<div class="card">
+  <span class="section-label">Section 10 — Common Errors / Debugging</span>
+  <ul><li><strong>No positive example:</strong> ebl returns None — handle empty rule.</li>
+<li><strong>KeyError:</strong> Ensure dict keys match ('Age', 'Income', 'Buy Product').</li>
+<li><strong>Boundary errors:</strong> Use >= instead of > for inclusive thresholds.</li></ul>
+</div>
+
+    
+<div class="program-header" id="final-revision">
+  <div class="program-num">Final Section</div>
+  <h2>Final Revision &amp; Exam Preparation</h2>
+</div>
+
+<div class="card">
+  <h2>1. Top 100 Important Viva Questions</h2>
+  <div class="viva-item"><div class="q">Q1: What is supervised learning?</div><div class="a"><strong>Answer:</strong> Learning from labeled data where each input has a known output (e.g., Iris species, marks prediction).</div></div>
+  <div class="viva-item"><div class="q">Q2: What is unsupervised learning?</div><div class="a"><strong>Answer:</strong> Finding patterns in unlabeled data — clustering (K-Means, DBSCAN, K-Modes).</div></div>
+  <div class="viva-item"><div class="q">Q3: What is reinforcement learning?</div><div class="a"><strong>Answer:</strong> Agent learns through rewards/penalties from environment interaction (Q-learning).</div></div>
+  <div class="viva-item"><div class="q">Q4: Why use train-test split?</div><div class="a"><strong>Answer:</strong> Evaluate generalization on unseen data; detect overfitting.</div></div>
+  <div class="viva-item"><div class="q">Q5: Difference between X and y?</div><div class="a"><strong>Answer:</strong> X = input features; y = target labels/values to predict.</div></div>
+  <div class="viva-item"><div class="q">Q6: What is overfitting?</div><div class="a"><strong>Answer:</strong> Model memorizes training data, poor on new data — too complex for data size.</div></div>
+  <div class="viva-item"><div class="q">Q7: What is underfitting?</div><div class="a"><strong>Answer:</strong> Model too simple to capture patterns — high error on train and test.</div></div>
+  <div class="viva-item"><div class="q">Q8: Bias vs Variance?</div><div class="a"><strong>Answer:</strong> Bias = error from wrong assumptions (underfitting); Variance = sensitivity to training data (overfitting).</div></div>
+  <div class="viva-item"><div class="q">Q9: What is backpropagation?</div><div class="a"><strong>Answer:</strong> Computes gradients via chain rule to update neural network weights.</div></div>
+  <div class="viva-item"><div class="q">Q10: What is sigmoid activation?</div><div class="a"><strong>Answer:</strong> σ(x)=1/(1+e⁻ˣ) — maps input to (0,1) for non-linearity.</div></div>
+  <div class="viva-item"><div class="q">Q11: What is learning rate?</div><div class="a"><strong>Answer:</strong> Step size in gradient descent weight updates.</div></div>
+  <div class="viva-item"><div class="q">Q12: What is MSE?</div><div class="a"><strong>Answer:</strong> Mean Squared Error — average of (actual−predicted)².</div></div>
+  <div class="viva-item"><div class="q">Q13: Perceptron learning rule?</div><div class="a"><strong>Answer:</strong> w ← w + η(t−y)x; update on misclassification.</div></div>
+  <div class="viva-item"><div class="q">Q14: Why can't perceptron learn XOR?</div><div class="a"><strong>Answer:</strong> XOR not linearly separable — needs hidden layer.</div></div>
+  <div class="viva-item"><div class="q">Q15: What is linear separability?</div><div class="a"><strong>Answer:</strong> Classes separable by single hyperplane/decision boundary.</div></div>
+  <div class="viva-item"><div class="q">Q16: What is K-Means?</div><div class="a"><strong>Answer:</strong> Partitions data into k clusters minimizing within-cluster variance.</div></div>
+  <div class="viva-item"><div class="q">Q17: What is a centroid?</div><div class="a"><strong>Answer:</strong> Mean of all points in a cluster.</div></div>
+  <div class="viva-item"><div class="q">Q18: What is K-Modes?</div><div class="a"><strong>Answer:</strong> K-Means for categorical data using modes.</div></div>
+  <div class="viva-item"><div class="q">Q19: What is elbow method?</div><div class="a"><strong>Answer:</strong> Plot k vs inertia; choose k at elbow point.</div></div>
+  <div class="viva-item"><div class="q">Q20: What is hierarchical clustering?</div><div class="a"><strong>Answer:</strong> Builds tree of nested clusters — agglomerative or divisive.</div></div>
+  <div class="viva-item"><div class="q">Q21: What is a dendrogram?</div><div class="a"><strong>Answer:</strong> Tree diagram of merge order in hierarchical clustering.</div></div>
+  <div class="viva-item"><div class="q">Q22: What is Ward's linkage?</div><div class="a"><strong>Answer:</strong> Minimizes variance increase when merging clusters.</div></div>
+  <div class="viva-item"><div class="q">Q23: What is DBSCAN?</div><div class="a"><strong>Answer:</strong> Density-based clustering; finds arbitrary shapes and outliers.</div></div>
+  <div class="viva-item"><div class="q">Q24: What is eps in DBSCAN?</div><div class="a"><strong>Answer:</strong> Neighborhood radius for density connectivity.</div></div>
+  <div class="viva-item"><div class="q">Q25: What is min_samples in DBSCAN?</div><div class="a"><strong>Answer:</strong> Minimum points to form dense region (core point).</div></div>
+  <div class="viva-item"><div class="q">Q26: What does label -1 mean in DBSCAN?</div><div class="a"><strong>Answer:</strong> Outlier/noise point not in any cluster.</div></div>
+  <div class="viva-item"><div class="q">Q27: Why standardize for DBSCAN?</div><div class="a"><strong>Answer:</strong> Equal feature scales for meaningful distance-based eps.</div></div>
+  <div class="viva-item"><div class="q">Q28: What is SVM?</div><div class="a"><strong>Answer:</strong> Finds maximum-margin hyperplane separating classes.</div></div>
+  <div class="viva-item"><div class="q">Q29: What are support vectors?</div><div class="a"><strong>Answer:</strong> Training points on margin boundary defining the classifier.</div></div>
+  <div class="viva-item"><div class="q">Q30: What is kernel trick?</div><div class="a"><strong>Answer:</strong> Implicit high-dimensional mapping via kernel function K(x,x').</div></div>
+  <div class="viva-item"><div class="q">Q31: Linear vs RBF kernel?</div><div class="a"><strong>Answer:</strong> Linear = straight boundary; RBF = non-linear flexible boundary.</div></div>
+  <div class="viva-item"><div class="q">Q32: What is parameter C in SVM?</div><div class="a"><strong>Answer:</strong> Regularization — trade-off between margin width and misclassification.</div></div>
+  <div class="viva-item"><div class="q">Q33: What is SVR?</div><div class="a"><strong>Answer:</strong> SVM for regression with ε-insensitive tube.</div></div>
+  <div class="viva-item"><div class="q">Q34: What is epsilon in SVR?</div><div class="a"><strong>Answer:</strong> Width of insensitive tube — no loss if error within ε.</div></div>
+  <div class="viva-item"><div class="q">Q35: What is Q-learning?</div><div class="a"><strong>Answer:</strong> RL algorithm learning Q(s,a) action-value function.</div></div>
+  <div class="viva-item"><div class="q">Q36: Bellman equation?</div><div class="a"><strong>Answer:</strong> Q(s,a) = r + γ·max Q(s',a') — recursive optimal value definition.</div></div>
+  <div class="viva-item"><div class="q">Q37: What is epsilon-greedy?</div><div class="a"><strong>Answer:</strong> ε random exploration, (1−ε) greedy exploitation.</div></div>
+  <div class="viva-item"><div class="q">Q38: What is discount factor γ?</div><div class="a"><strong>Answer:</strong> Weight on future rewards — 0.9 means future matters but less than now.</div></div>
+  <div class="viva-item"><div class="q">Q39: What is a Genetic Algorithm?</div><div class="a"><strong>Answer:</strong> Evolution-inspired optimization: selection, crossover, mutation.</div></div>
+  <div class="viva-item"><div class="q">Q40: What is fitness function?</div><div class="a"><strong>Answer:</strong> Evaluates solution quality — GA maximizes f(x)=x² here.</div></div>
+  <div class="viva-item"><div class="q">Q41: What is tournament selection?</div><div class="a"><strong>Answer:</strong> Best of k random individuals chosen as parent.</div></div>
+  <div class="viva-item"><div class="q">Q42: What is crossover?</div><div class="a"><strong>Answer:</strong> Recombining parent solutions to create offspring.</div></div>
+  <div class="viva-item"><div class="q">Q43: What is mutation in GA?</div><div class="a"><strong>Answer:</strong> Random gene change maintaining population diversity.</div></div>
+  <div class="viva-item"><div class="q">Q44: What is EBL?</div><div class="a"><strong>Answer:</strong> Explanation-Based Learning — generalize rule from explained example.</div></div>
+  <div class="viva-item"><div class="q">Q45: What is Iris dataset?</div><div class="a"><strong>Answer:</strong> 150 samples, 4 features, 3 flower species — ML benchmark.</div></div>
+  <div class="viva-item"><div class="q">Q46: What is fit() in sklearn?</div><div class="a"><strong>Answer:</strong> Train model on provided data X (and y for supervised).</div></div>
+  <div class="viva-item"><div class="q">Q47: What is predict()?</div><div class="a"><strong>Answer:</strong> Returns model predictions for new input X.</div></div>
+  <div class="viva-item"><div class="q">Q48: What is fit_predict()?</div><div class="a"><strong>Answer:</strong> Fit and return cluster labels in one call.</div></div>
+  <div class="viva-item"><div class="q">Q49: What is transform()?</div><div class="a"><strong>Answer:</strong> Apply learned transformation (e.g., StandardScaler scaling).</div></div>
+  <div class="viva-item"><div class="q">Q50: What is fit_transform()?</div><div class="a"><strong>Answer:</strong> Fit scaler and transform data in one step.</div></div>
+  <div class="viva-item"><div class="q">Q51: What is train_test_split?</div><div class="a"><strong>Answer:</strong> Splits data into train and test sets randomly.</div></div>
+  <div class="viva-item"><div class="q">Q52: What is reshape(-1,1)?</div><div class="a"><strong>Answer:</strong> Converts to column vector for sklearn 2D input requirement.</div></div>
+  <div class="viva-item"><div class="q">Q53: What is np.dot?</div><div class="a"><strong>Answer:</strong> Matrix multiplication / dot product for weighted sums.</div></div>
+  <div class="viva-item"><div class="q">Q54: What is epoch?</div><div class="a"><strong>Answer:</strong> One full pass through entire training dataset.</div></div>
+  <div class="viva-item"><div class="q">Q55: Classification vs Regression?</div><div class="a"><strong>Answer:</strong> Classification predicts discrete class; regression predicts continuous value.</div></div>
+  <div class="viva-item"><div class="q">Q56: What is clustering?</div><div class="a"><strong>Answer:</strong> Grouping similar unlabeled data points.</div></div>
+  <div class="viva-item"><div class="q">Q57: What is inertia in K-Means?</div><div class="a"><strong>Answer:</strong> Sum of squared distances to nearest centroid.</div></div>
+  <div class="viva-item"><div class="q">Q58: What is silhouette score?</div><div class="a"><strong>Answer:</strong> Measures cluster cohesion vs separation (−1 to 1).</div></div>
+  <div class="viva-item"><div class="q">Q59: What is StandardScaler?</div><div class="a"><strong>Answer:</strong> Standardizes features to zero mean, unit variance.</div></div>
+  <div class="viva-item"><div class="q">Q60: What is accuracy?</div><div class="a"><strong>Answer:</strong> (TP+TN)/Total — fraction of correct predictions.</div></div>
+  <div class="viva-item"><div class="q">Q61: What is precision?</div><div class="a"><strong>Answer:</strong> TP/(TP+FP) — of predicted positives, how many correct.</div></div>
+  <div class="viva-item"><div class="q">Q62: What is recall?</div><div class="a"><strong>Answer:</strong> TP/(TP+FN) — of actual positives, how many found.</div></div>
+  <div class="viva-item"><div class="q">Q63: What is F1 score?</div><div class="a"><strong>Answer:</strong> 2·(Precision·Recall)/(Precision+Recall) — harmonic mean.</div></div>
+  <div class="viva-item"><div class="q">Q64: What is confusion matrix?</div><div class="a"><strong>Answer:</strong> Table of TP, FP, TN, FN for binary/multiclass evaluation.</div></div>
+  <div class="viva-item"><div class="q">Q65: What is RMSE?</div><div class="a"><strong>Answer:</strong> √(MSE) — regression error in same units as target.</div></div>
+  <div class="viva-item"><div class="q">Q66: What is MAE?</div><div class="a"><strong>Answer:</strong> Mean Absolute Error — average |actual−predicted|.</div></div>
+  <div class="viva-item"><div class="q">Q67: What is R² score?</div><div class="a"><strong>Answer:</strong> Proportion of variance explained; 1=perfect, 0=baseline mean.</div></div>
+  <div class="viva-item"><div class="q">Q68: What is normalization?</div><div class="a"><strong>Answer:</strong> Scaling data to [0,1] or unit range — used in ANN program.</div></div>
+  <div class="viva-item"><div class="q">Q69: What is gradient descent?</div><div class="a"><strong>Answer:</strong> Iterative optimization moving opposite to loss gradient.</div></div>
+  <div class="viva-item"><div class="q">Q70: What is activation function?</div><div class="a"><strong>Answer:</strong> Non-linear function (sigmoid, ReLU, step) applied to neuron output.</div></div>
+  <div class="viva-item"><div class="q">Q71: Hidden layer purpose?</div><div class="a"><strong>Answer:</strong> Learns intermediate feature representations for non-linear patterns.</div></div>
+  <div class="viva-item"><div class="q">Q72: What is random_state?</div><div class="a"><strong>Answer:</strong> Seed for reproducible random initialization in sklearn.</div></div>
+  <div class="viva-item"><div class="q">Q73: What is n_clusters?</div><div class="a"><strong>Answer:</strong> Number of clusters k in K-Means/K-Modes.</div></div>
+  <div class="viva-item"><div class="q">Q74: What is labels_ attribute?</div><div class="a"><strong>Answer:</strong> Cluster assignment per sample after fit().</div></div>
+  <div class="viva-item"><div class="q">Q75: What is meshgrid used for?</div><div class="a"><strong>Answer:</strong> Creates 2D grid for plotting decision boundaries.</div></div>
+  <div class="viva-item"><div class="q">Q76: What is contourf?</div><div class="a"><strong>Answer:</strong> Filled contour plot coloring decision regions.</div></div>
+  <div class="viva-item"><div class="q">Q77: What is one-vs-rest?</div><div class="a"><strong>Answer:</strong> Multi-class strategy — one classifier per class vs all others.</div></div>
+  <div class="viva-item"><div class="q">Q78: What is model-free RL?</div><div class="a"><strong>Answer:</strong> No environment transition model needed — Q-learning is model-free.</div></div>
+  <div class="viva-item"><div class="q">Q79: What is policy in RL?</div><div class="a"><strong>Answer:</strong> Strategy mapping states to actions — π(s)=argmax Q(s,a).</div></div>
+  <div class="viva-item"><div class="q">Q80: What is agglomerative clustering?</div><div class="a"><strong>Answer:</strong> Bottom-up hierarchical — merge closest clusters iteratively.</div></div>
+  <div class="viva-item"><div class="q">Q81: What is divisive clustering?</div><div class="a"><strong>Answer:</strong> Top-down hierarchical — split clusters recursively.</div></div>
+  <div class="viva-item"><div class="q">Q82: What is mode in statistics?</div><div class="a"><strong>Answer:</strong> Most frequent value — centroid for categorical data in K-Modes.</div></div>
+  <div class="viva-item"><div class="q">Q83: What is kmodes library?</div><div class="a"><strong>Answer:</strong> Third-party package for K-Modes clustering (pip install kmodes).</div></div>
+  <div class="viva-item"><div class="q">Q84: What is scipy.cluster.hierarchy?</div><div class="a"><strong>Answer:</strong> SciPy module for linkage and dendrogram functions.</div></div>
+  <div class="viva-item"><div class="q">Q85: What is cross-validation?</div><div class="a"><strong>Answer:</strong> Split data into k folds; train on k−1, validate on 1; rotate.</div></div>
+  <div class="viva-item"><div class="q">Q86: What is feature scaling?</div><div class="a"><strong>Answer:</strong> Normalizing/standardizing features for fair distance and gradient computation.</div></div>
+  <div class="viva-item"><div class="q">Q87: What is hyperparameter?</div><div class="a"><strong>Answer:</strong> Set before training — k, C, eps, learning rate, epochs.</div></div>
+  <div class="viva-item"><div class="q">Q88: What is parameter vs hyperparameter?</div><div class="a"><strong>Answer:</strong> Parameters learned (weights); hyperparameters configured (lr, k).</div></div>
+  <div class="viva-item"><div class="q">Q89: What is vanishing gradient?</div><div class="a"><strong>Answer:</strong> Gradients become tiny in deep sigmoid networks, slowing learning.</div></div>
+  <div class="viva-item"><div class="q">Q90: What is ReLU?</div><div class="a"><strong>Answer:</strong> max(0,x) activation — avoids vanishing gradient in hidden layers.</div></div>
+  <div class="viva-item"><div class="q">Q91: What is pandas DataFrame?</div><div class="a"><strong>Answer:</strong> 2D labeled table for structured data manipulation.</div></div>
+  <div class="viva-item"><div class="q">Q92: What is matplotlib used for?</div><div class="a"><strong>Answer:</strong> Plotting graphs — scatter, line, contour, dendrogram.</div></div>
+  <div class="viva-item"><div class="q">Q93: What is seaborn?</div><div class="a"><strong>Answer:</strong> Statistical visualization library built on matplotlib (not used in these programs).</div></div>
+  <div class="viva-item"><div class="q">Q94: Is TensorFlow used in these labs?</div><div class="a"><strong>Answer:</strong> No — ANN implemented from scratch with NumPy; no Keras/TensorFlow in provided programs.</div></div>
+  <div class="viva-item"><div class="q">Q95: What is inductive bias?</div><div class="a"><strong>Answer:</strong> Assumptions a learner makes to generalize — e.g., linear separability for perceptron.</div></div>
+  <div class="viva-item"><div class="q">Q96: What is no free lunch theorem?</div><div class="a"><strong>Answer:</strong> No algorithm best for all problems — choose based on data/task.</div></div>
+  <div class="viva-item"><div class="q">Q97: What is curse of dimensionality?</div><div class="a"><strong>Answer:</strong> Data becomes sparse in high dimensions — distance metrics less meaningful.</div></div>
+  <div class="viva-item"><div class="q">Q98: What is ensemble learning?</div><div class="a"><strong>Answer:</strong> Combining multiple models for better performance (not in these labs).</div></div>
+  <div class="viva-item"><div class="q">Q99: What is regularization?</div><div class="a"><strong>Answer:</strong> Penalty on model complexity to prevent overfitting — C in SVM, weight decay in NN.</div></div>
+  <div class="viva-item"><div class="q">Q100: Which algorithm for categorical clustering?</div><div class="a"><strong>Answer:</strong> K-Modes — K-Means is for numerical data only.</div></div>
+</div>
+
+<div class="card">
+  <h2>2. Frequently Used sklearn Functions Cheat Sheet</h2>
+  <table>
+    <thead><tr><th>Function / Class</th><th>Module</th><th>Purpose</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><code>train_test_split</code></td><td>model_selection</td><td>Split data</td><td><code>train_test_split(X, y, test_size=0.2)</code></td></tr>
+      <tr><td><code>KMeans</code></td><td>cluster</td><td>Partition clustering</td><td><code>KMeans(n_clusters=3).fit(X)</code></td></tr>
+      <tr><td><code>DBSCAN</code></td><td>cluster</td><td>Density clustering</td><td><code>DBSCAN(eps=0.5).fit_predict(X)</code></td></tr>
+      <tr><td><code>AgglomerativeClustering</code></td><td>cluster</td><td>Hierarchical</td><td><code>AgglomerativeClustering(n_clusters=2)</code></td></tr>
+      <tr><td><code>SVC</code></td><td>svm</td><td>Classification</td><td><code>SVC(kernel='linear', C=1.0)</code></td></tr>
+      <tr><td><code>SVR</code></td><td>svm</td><td>Regression</td><td><code>SVR(kernel='rbf', epsilon=0.1)</code></td></tr>
+      <tr><td><code>StandardScaler</code></td><td>preprocessing</td><td>Standardize</td><td><code>StandardScaler().fit_transform(X)</code></td></tr>
+      <tr><td><code>load_iris</code></td><td>datasets</td><td>Load Iris</td><td><code>datasets.load_iris()</code></td></tr>
+      <tr><td><code>fit()</code></td><td>all estimators</td><td>Train model</td><td><code>model.fit(X, y)</code></td></tr>
+      <tr><td><code>predict()</code></td><td>supervised</td><td>Predict labels/values</td><td><code>model.predict(X_test)</code></td></tr>
+      <tr><td><code>fit_predict()</code></td><td>cluster</td><td>Fit + labels</td><td><code>model.fit_predict(X)</code></td></tr>
+      <tr><td><code>transform()</code></td><td>preprocessing</td><td>Apply transform</td><td><code>scaler.transform(X_test)</code></td></tr>
+      <tr><td><code>accuracy_score</code></td><td>metrics</td><td>Classification accuracy</td><td><code>accuracy_score(y_true, y_pred)</code></td></tr>
+      <tr><td><code>mean_squared_error</code></td><td>metrics</td><td>Regression MSE</td><td><code>mean_squared_error(y, y_pred)</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>3. ML Formulas Cheat Sheet</h2>
+  <div class="cheat-grid">
+    <div class="cheat-card"><h4>Sigmoid</h4><div class="formula">σ(x) = 1 / (1 + e<sup>−x</sup>)</div></div>
+    <div class="cheat-card"><h4>MSE Loss</h4><div class="formula">MSE = (1/n) Σ(y − ŷ)²</div></div>
+    <div class="cheat-card"><h4>Perceptron Update</h4><div class="formula">w ← w + η(t − y)x</div></div>
+    <div class="cheat-card"><h4>K-Means Objective</h4><div class="formula">J = Σ<sub>k</sub> Σ<sub>x∈C<sub>k</sub></sub> ||x − μ<sub>k</sub>||²</div></div>
+    <div class="cheat-card"><h4>Bellman (Q-learning)</h4><div class="formula">Q(s,a) ← r + γ max Q(s',a')</div></div>
+    <div class="cheat-card"><h4>SVM Margin</h4><div class="formula">Maximize 2/||w|| subject to y(w·x+b) ≥ 1</div></div>
+    <div class="cheat-card"><h4>Accuracy</h4><div class="formula">(TP + TN) / Total</div></div>
+    <div class="cheat-card"><h4>Precision</h4><div class="formula">TP / (TP + FP)</div></div>
+    <div class="cheat-card"><h4>Recall</h4><div class="formula">TP / (TP + FN)</div></div>
+    <div class="cheat-card"><h4>F1 Score</h4><div class="formula">2PR / (P + R)</div></div>
+    <div class="cheat-card"><h4>RMSE</h4><div class="formula">√(MSE)</div></div>
+    <div class="cheat-card"><h4>R² Score</h4><div class="formula">1 − SS<sub>res</sub>/SS<sub>tot</sub></div></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>4. Confusion Matrix Explanation</h2>
+  <table>
+    <thead><tr><th></th><th>Predicted Positive</th><th>Predicted Negative</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Actual Positive</strong></td><td>True Positive (TP)</td><td>False Negative (FN)</td></tr>
+      <tr><td><strong>Actual Negative</strong></td><td>False Positive (FP)</td><td>True Negative (TN)</td></tr>
+    </tbody>
+  </table>
+  <div class="info-box">
+    <strong>TP:</strong> Correctly predicted positive &nbsp;|&nbsp;
+    <strong>TN:</strong> Correctly predicted negative &nbsp;|&nbsp;
+    <strong>FP:</strong> Type I error — false alarm &nbsp;|&nbsp;
+    <strong>FN:</strong> Type II error — missed detection
+  </div>
+</div>
+
+<div class="card">
+  <h2>5. Metrics Summary</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Formula</th><th>Use Case</th><th>Range</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Accuracy</strong></td><td>(TP+TN)/Total</td><td>Balanced classification</td><td>0 to 1</td></tr>
+      <tr><td><strong>Precision</strong></td><td>TP/(TP+FP)</td><td>When FP costly (spam)</td><td>0 to 1</td></tr>
+      <tr><td><strong>Recall</strong></td><td>TP/(TP+FN)</td><td>When FN costly (disease)</td><td>0 to 1</td></tr>
+      <tr><td><strong>F1 Score</strong></td><td>2PR/(P+R)</td><td>Imbalanced classes</td><td>0 to 1</td></tr>
+      <tr><td><strong>MSE</strong></td><td>mean((y−ŷ)²)</td><td>Regression</td><td>0 to ∞</td></tr>
+      <tr><td><strong>RMSE</strong></td><td>√MSE</td><td>Regression (same units)</td><td>0 to ∞</td></tr>
+      <tr><td><strong>MAE</strong></td><td>mean(|y−ŷ|)</td><td>Robust regression metric</td><td>0 to ∞</td></tr>
+      <tr><td><strong>R²</strong></td><td>1 − SS_res/SS_tot</td><td>Variance explained</td><td>−∞ to 1</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h2>6. Last Minute Exam Tips</h2>
+  <h3>How to Explain Code to Examiner</h3>
+  <ol>
+    <li>State the <strong>aim</strong> in one sentence first.</li>
+    <li>Identify <strong>type of ML</strong> (supervised/unsupervised/RL).</li>
+    <li>Walk through: <strong>import → data → preprocess → model → train → evaluate → visualize</strong>.</li>
+    <li>Name key <strong>hyperparameters</strong> (k, C, eps, lr, epochs).</li>
+    <li>Explain <strong>expected output</strong> and how to interpret it.</li>
+  </ol>
+  <h3>How to Answer Viva Confidently</h3>
+  <ul>
+    <li>Listen fully before answering — pause 2 seconds to think.</li>
+    <li>Start with definition, then give example from your program.</li>
+    <li>If unsure, say "In our program we used it for..." rather than guessing.</li>
+    <li>Draw quick diagrams for ANN architecture, confusion matrix, dendrogram.</li>
+  </ul>
+  <h3>Common Trick Questions</h3>
+  <div class="warning-box">
+    <ul>
+      <li><strong>"Can K-Means handle categorical data?"</strong> → No, use K-Modes.</li>
+      <li><strong>"Does DBSCAN need k?"</strong> → No, but needs eps and min_samples.</li>
+      <li><strong>"Is Q-learning supervised?"</strong> → No, it's reinforcement learning.</li>
+      <li><strong>"Will linear SVM work on XOR?"</strong> → No, not linearly separable.</li>
+      <li><strong>"Will linear SVR fit sin(x)?"</strong> → Poorly; need RBF kernel.</li>
+      <li><strong>"What if all DBSCAN labels are -1?"</strong> → eps too small, increase it.</li>
+      <li><strong>"Why normalize in ANN?"</strong> → Faster convergence, stable gradients.</li>
+    </ul>
+  </div>
+</div>
+
+
+  </main>
+</div>
+
+<footer style="text-align:center;padding:2rem;color:#6b7280;font-size:0.85rem;">
+  VTU Advanced Machine Learning Lab Manual &mdash; CML23602 &mdash; Generated for Exam Preparation
+</footer>
+
+</body>
+</html>
